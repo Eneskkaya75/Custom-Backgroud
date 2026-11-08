@@ -1,477 +1,399 @@
 /**
  * @name Custom Background - Renkli Temalar
- * @author Eneskkaya75 (ozellestirme), finnecre (ilk tema fikri)
- * @version 4.7.3
- * @description Tek ayardan yuzdelik saydamlik, bolgesel ince ayarlar, Nitro renkleri ve sunucu sutunlari. Harici CSS import yok.
+ * @author Eneskkaya75 (özelleştirme), finnecre (ilk fikir)
+ * @version 4.7.5
+ * @description Ayarlanabilir cam saydamligi, Nitro renkleri, temiz ayarlar, sohbet efektleri ve sunucu sutunlari. Harici CSS yok.
  */
 
-/* =====================================================================
-   CUSTOM BACKGROUND v4.7.3 | PAYLASILABILIR ANA TEMA
+/* ========================================================================
+   CUSTOM BACKGROUND v4.7.5 — PAYLASILABILIR TEMA
+   Ortak GitHub dosyasinda kisisel arka plan resmi BULUNMAZ.
+   Her kullanici CSS Editor'de (temanin import satirinin ALTINDA) kendi
+   --wallpaper, --columns ve --cb-transparency ayarlarini tanimlar.
 
-   Bu dosya GitHub'da ortak kullanilir. Kullaniciya ait resim YOK.
-   Her kullanici Vencord / BetterDiscord CSS editorunde @import'tan
-   SONRA kendi --wallpaper, --columns ve --cb-transparency
-   degerlerini belirler. Bu dosyadaki degerler varsayilandir.
+   --cb-transparency: 0% = opak  |  86% = seffaf  | 100% = cok seffaf.
+   Ana ayar sohbet, yan paneller, mesaj kutusu ve ayarlar ekranini etkiler.
+   Mikrofon/kulaklik paneli okunabilirlik icin ayri ayarlanir.
+   ======================================================================== */
 
-   SADECE --cb-transparency degerini degistirmen yeterli:
-   0%   = opak (arka plan gorunmez)
-   50%  = yari saydam
-   86%  = varsayilan / arka plan net gorunur
-   95%  = cok saydam (yazilarin okunmasi zorlasabilir)
-   100% = tamamen saydam (fotograf on planda)
-
-   Ayri ayarlar: --cb-sidebar-tint, --cb-members-tint, --cb-input-tint
-   = ana saydamliga EK opaklik verir. 0% = sohbetle ayni.
-   Alt mikrofon/kulaklik paneli bagimsizdir: --cb-panel-opacity.
-   Harici CSS importu, JS ve eklenti bagimliligi yoktur.
-   ===================================================================== */
 :root {
-    /* 1) ARKA PLAN */
-    --wallpaper: none;                 /* Kullanici URL'yi CSS editorunde tanimlar */
+    /* KULLANICININ CSS EDITOR'DE DEGISTIREBILECEGI AYARLAR */
+    --wallpaper: none;
     --wallpaper-size: cover;
     --wallpaper-position: center;
-    --columns: 0;                       /* 0/1 normal; 2+ cok sutun */
+    --columns: 0;
     --guildgap: 3;
     --aligndms: 0;
 
-    /* 2) ANA SAYDAMLIK: DEGISTIRILECEK EN ONEMLI DEGER */
-    --cb-transparency: 86%;             /* 0% opak  -  100% saydam */
+    /* EN ONEMLI AYAR: 0%=opak / 100%=tam seffaf */
+    --cb-transparency: 86%;
 
-    /* 3) BOLGESEL OPakLIK EKLERI (pozitif = daha KOYU / daha AZ saydam) */
-    --cb-sidebar-tint: 26%;            /* Kanal listesi: 40% opak */
-    --cb-members-tint: 18%;            /* Uye listesi: 32% opak */
-    --cb-header-tint: 24%;             /* Sohbet basligi: 38% opak */
-    --cb-input-tint: 44%;              /* Mesaj yazma alani: 58% opak */
-    --cb-glass-tint: 19%;              /* Genel cam yuzeyleri: 33% opak */
-    --cb-workspace-tint: -4%;          /* Discord arka plan degiskeni: 10% */
+    /* Ek koyuluk: ana saydamligin ustune eklenir. 0% = sohbet kadar. */
+    --cb-sidebar-tint: 25%;
+    --cb-members-tint: 16%;
+    --cb-header-tint: 23%;
+    --cb-input-tint: 40%;
+    --cb-settings-tint: 44%;
+    --cb-settings-sidebar-tint: 54%;
 
-    /* 4) SES / KULLANICI KONTROLLERINI OKUNAKLI BIRAK */
-    --cb-panel-opacity: 92%;           /* Alt kontrol paneli */
-    --cb-panel-footer-opacity: 94%;    /* En alttaki avatar/ayar satiri */
+    /* Alt ses / kullanici kontrolleri bagimsizdir. */
+    --cb-panel-opacity: 92%;
+    --cb-panel-footer-opacity: 94%;
+
+    /* Doku, animasyon ve nitro rengi */
+    --cb-chat-blur: 0px;
+    --cb-sidebar-blur: 3px;
+    --cb-settings-blur: 2px;
     --cb-panel-blur: 8px;
+    --cb-radius: 12px;
+    --cb-message-radius: 9px;
+    --cb-transition: 160ms;
+    --cb-hover-shift: 2px;
+    --cb-accent: var(--brand-500, #7186ef);
+    --cb-accent-strength: 17%;
+    --cb-message-hover-opacity: 8%;
+    --cb-wallpaper-dim: 0%;
 
-    /* 5) BULANIKLIK / CAM / HAREKET */
-    --cb-glass-blur: 4px;
-    --cb-chat-blur: 0px;                /* Sohbet fotografi net olsun */
-    --cb-sidebar-blur: 6px;
-    --cb-members-blur: 5px;
-    --cb-input-blur: 6px;
-    --cb-wallpaper-dim: 0.04;          /* 0 = resim aynen; 0.10 = hafif karanlik */
-    --cb-message-hover-opacity: 0.075;
-    --cb-radius: 13px;
-    --cb-message-radius: 10px;
-    --cb-transition: 170ms;
-    --cb-hover-lift: -1px;
-
-    /* 6) NITRO RENGI / SUNUCU SUTUNLARI */
-    --cb-accent: var(--brand-500, #6575e9);
-    --cb-accent-strength: 22%;
+    /* Sunucu sutunlari (orijinal altyapi) */
     --cb-server-icon: 50px;
     --cb-server-gap-x: 12px;
     --cb-server-gap-y: 9px;
     --cb-server-side-padding: 11px;
 
-    /* 7) TURETILEN DEGERLER: ELLEMENE GEREK YOK */
-    --cb-chat-opacity: clamp(0%, calc(100% - var(--cb-transparency)), 100%);
-    --cb-sidebar-opacity: clamp(0%, calc(100% - var(--cb-transparency) + var(--cb-sidebar-tint)), 100%);
-    --cb-members-opacity: clamp(0%, calc(100% - var(--cb-transparency) + var(--cb-members-tint)), 100%);
-    --cb-header-opacity: clamp(0%, calc(100% - var(--cb-transparency) + var(--cb-header-tint)), 100%);
-    --cb-input-opacity: clamp(0%, calc(100% - var(--cb-transparency) + var(--cb-input-tint)), 100%);
-    --cb-glass-opacity: clamp(0%, calc(100% - var(--cb-transparency) + var(--cb-glass-tint)), 100%);
-    --cb-workspace-opacity: clamp(0%, calc(100% - var(--cb-transparency) + var(--cb-workspace-tint)), 100%);
+    /* OTOMATIK HESAP — elle degistirmeyin */
+    --cb-chat-alpha: clamp(0%, calc(100% - var(--cb-transparency)), 100%);
+    --cb-sidebar-alpha: clamp(0%, calc(100% - var(--cb-transparency) + var(--cb-sidebar-tint)), 100%);
+    --cb-members-alpha: clamp(0%, calc(100% - var(--cb-transparency) + var(--cb-members-tint)), 100%);
+    --cb-header-alpha: clamp(0%, calc(100% - var(--cb-transparency) + var(--cb-header-tint)), 100%);
+    --cb-input-alpha: clamp(0%, calc(100% - var(--cb-transparency) + var(--cb-input-tint)), 100%);
+    --cb-settings-alpha: clamp(0%, calc(100% - var(--cb-transparency) + var(--cb-settings-tint)), 100%);
+    --cb-settings-sidebar-alpha: clamp(0%, calc(100% - var(--cb-transparency) + var(--cb-settings-sidebar-tint)), 100%);
+    --cb-workspace-alpha: clamp(0%, calc(100% - var(--cb-transparency)), 100%);
 
-    /* 8) Koyu tema paleti (acik tema otomatik uyumlar) */
-    --cb-glass-rgb: 14 20 34;
+    /* Koyu mod tasarim tabani */
+    --cb-glass-rgb: 13 18 31;
     --cb-panel-rgb: 14 20 34;
-    --cb-floating-rgb: 20 23 33;
-    --cb-border: rgba(192, 204, 255, 0.16);
-    --cb-shadow: 0 12px 32px rgba(0, 0, 0, 0.24);
-    --cb-message-hover-rgb: 255 255 255;
-    --cb-settings-overlay: rgba(10, 15, 28, 0.76);
-    --cb-settings-sidebar: rgba(13, 20, 34, 0.86);
-    --cb-settings-surface: rgba(26, 35, 54, 0.82);
-    --cb-settings-edge: rgba(173, 196, 255, 0.16);
+    --cb-float-rgb: 22 26 37;
+    --cb-line: rgb(172 190 242 / 13%);
+    --cb-soft-shadow: 0 8px 24px rgb(0 0 0 / 16%);
+    --cb-hover-rgb: 255 255 255;
     --cb-accent-soft: color-mix(in srgb, var(--cb-accent) var(--cb-accent-strength), transparent);
-    --cb-accent-border: color-mix(in srgb, var(--cb-accent) 35%, transparent);
+    --cb-accent-line: color-mix(in srgb, var(--cb-accent) 40%, transparent);
 }
 
 .theme-light {
-    --cb-glass-rgb: 245 248 255;
-    --cb-panel-rgb: 245 248 255;
-    --cb-floating-rgb: 255 255 255;
-    --cb-border: rgba(37, 57, 105, 0.17);
-    --cb-shadow: 0 12px 30px rgba(33, 49, 77, 0.13);
-    --cb-message-hover-rgb: 15 27 57;
-    --cb-settings-overlay: rgba(247, 249, 255, 0.81);
-    --cb-settings-sidebar: rgba(244, 247, 255, 0.88);
-    --cb-settings-surface: rgba(255, 255, 255, 0.84);
-    --cb-settings-edge: rgba(23, 34, 62, 0.16);
+    --cb-glass-rgb: 246 249 255;
+    --cb-panel-rgb: 246 249 255;
+    --cb-float-rgb: 255 255 255;
+    --cb-line: rgb(47 67 115 / 17%);
+    --cb-soft-shadow: 0 8px 24px rgb(31 47 80 / 14%);
+    --cb-hover-rgb: 17 27 47;
+    --cb-wallpaper-dim: 0%;
 }
 
-/* =====================================================================
-   1) DUVAR KAGIDI + NITRO OZEL RENK UYUMLULUGU (v4.6.4 korunur)
-   ===================================================================== */
+/* ========================================================================
+   1. TEK DUVAR KAGIDI / NITRO ARKA PLAN UYUMLULUGU
+   Ust uste duvar kagidi cizimini azaltiyoruz: foto body'de, app seffaf.
+   ======================================================================== */
 body {
-    background-image: var(--wallpaper);
-    background-size: var(--wallpaper-size);
-    background-position: var(--wallpaper-position);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-image:
+        linear-gradient(rgb(0 0 0 / var(--cb-wallpaper-dim)), rgb(0 0 0 / var(--cb-wallpaper-dim))),
+        var(--wallpaper) !important;
+    background-size: cover, var(--wallpaper-size) !important;
+    background-position: center, var(--wallpaper-position) !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    background-color: rgb(13 18 31) !important;
 }
-
 #app-mount,
+#app-mount > [class*="app_"],
+#app-mount > [class*="app_"] > [class*="app_"],
 #app-mount > [class*="app_"] > [class*="app_"] > [class*="bg_"] {
-    background: transparent !important;
+    background-color: transparent !important;
 }
 
-/* Nitro custom-color temasi orijinal fotografin ustunu kapatmasin. */
+/* Nitro özel renk temalarinin orijinal duvar kagidini kapatmasini azaltir. */
 :root,
 html.custom-theme-background,
 html.custom-theme-background body,
 html.custom-theme-background #app-mount,
-html.custom-theme-background .theme-light,
 html.custom-theme-background .theme-dark,
-html.custom-theme-background .visual-refresh {
+html.custom-theme-background .theme-light {
     --custom-theme-background: var(--wallpaper) !important;
 }
 
-html.custom-theme-background body {
-    background-image: var(--wallpaper) !important;
-    background-size: var(--wallpaper-size) !important;
-    background-position: var(--wallpaper-position) !important;
-    background-repeat: no-repeat !important;
-    background-attachment: fixed !important;
-}
-
-/* Koyu mod: fotografu tamamen gizleme, kayan acilir menuleri opak tut. */
-.theme-dark {
-    --background-base-lowest: rgb(var(--cb-glass-rgb) / 0.35);
-    --background-base-lower: rgb(var(--cb-glass-rgb) / 0.28);
-    --background-base-low: rgb(var(--cb-glass-rgb) / 0.22);
-    --background-primary: rgb(var(--cb-glass-rgb) / var(--cb-workspace-opacity));
-    --background-secondary: rgb(var(--cb-glass-rgb) / 0.24);
-    --background-secondary-alt: rgb(var(--cb-glass-rgb) / 0.20);
-    --background-tertiary: rgb(var(--cb-glass-rgb) / 0.18);
-    --bg-base-primary: rgb(var(--cb-glass-rgb) / var(--cb-workspace-opacity));
-    --bg-base-secondary: rgb(var(--cb-glass-rgb) / 0.24);
-    --bg-base-tertiary: rgb(var(--cb-glass-rgb) / 0.20);
-    --background-floating: rgb(var(--cb-floating-rgb) / 0.98);
-    --background-nested-floating: rgb(var(--cb-floating-rgb) / 0.98);
-    --bg-surface-overlay: rgb(var(--cb-floating-rgb) / 0.98);
-    --bg-surface-raised: rgb(var(--cb-floating-rgb) / 0.98);
-    --modal-background: rgb(var(--cb-floating-rgb) / 0.98);
-    --modal-footer-background: rgb(var(--cb-floating-rgb) / 0.98);
-    --channeltextarea-background: rgb(var(--cb-glass-rgb) / 0.48);
-    --background-modifier-hover: rgb(255 255 255 / 0.06);
-    --background-modifier-active: rgb(255 255 255 / 0.08);
-    --background-modifier-selected: rgb(255 255 255 / 0.10);
-    --background-message-hover: rgb(255 255 255 / 0.055);
+.theme-dark, .theme-light {
+    /* Tüm genel zeminler ana saydamliga baglidir, sabit 0.35/0.28 yok. */
+    --background-primary: rgb(var(--cb-glass-rgb) / var(--cb-workspace-alpha));
+    --background-secondary: rgb(var(--cb-glass-rgb) / var(--cb-workspace-alpha));
+    --background-secondary-alt: rgb(var(--cb-glass-rgb) / var(--cb-workspace-alpha));
+    --background-tertiary: rgb(var(--cb-glass-rgb) / var(--cb-workspace-alpha));
+    --background-base-lowest: rgb(var(--cb-glass-rgb) / var(--cb-workspace-alpha));
+    --background-base-lower: rgb(var(--cb-glass-rgb) / var(--cb-workspace-alpha));
+    --background-base-low: rgb(var(--cb-glass-rgb) / var(--cb-workspace-alpha));
+    --bg-base-primary: rgb(var(--cb-glass-rgb) / var(--cb-workspace-alpha));
+    --bg-base-secondary: rgb(var(--cb-glass-rgb) / var(--cb-workspace-alpha));
+    --bg-base-tertiary: rgb(var(--cb-glass-rgb) / var(--cb-workspace-alpha));
+    /* Kayan menuler fotograf uzerinde her zaman okunur kalir. */
+    --background-floating: rgb(var(--cb-float-rgb) / 98%);
+    --background-nested-floating: rgb(var(--cb-float-rgb) / 98%);
+    --bg-surface-overlay: rgb(var(--cb-float-rgb) / 98%);
+    --bg-surface-raised: rgb(var(--cb-float-rgb) / 98%);
+    --modal-background: rgb(var(--cb-float-rgb) / 98%);
+    --channeltextarea-background: rgb(var(--cb-glass-rgb) / var(--cb-input-alpha));
     --background-mentioned: color-mix(in srgb, var(--cb-accent) 10%, transparent);
     --background-mentioned-hover: color-mix(in srgb, var(--cb-accent) 15%, transparent);
+    --bg-overlay-app-frame: transparent;
+    --bg-overlay-1: transparent;
+    --bg-overlay-2: transparent;
+    --bg-overlay-3: transparent;
+    --bg-overlay-4: transparent;
 }
 
-.theme-light {
-    --background-base-lowest: rgb(var(--cb-glass-rgb) / 0.32);
-    --background-base-lower: rgb(var(--cb-glass-rgb) / 0.25);
-    --background-base-low: rgb(var(--cb-glass-rgb) / 0.20);
-    --background-primary: rgb(var(--cb-glass-rgb) / var(--cb-workspace-opacity));
-    --background-secondary: rgb(var(--cb-glass-rgb) / 0.20);
-    --background-secondary-alt: rgb(var(--cb-glass-rgb) / 0.16);
-    --background-tertiary: rgb(var(--cb-glass-rgb) / 0.14);
-    --bg-base-primary: rgb(var(--cb-glass-rgb) / var(--cb-workspace-opacity));
-    --bg-base-secondary: rgb(var(--cb-glass-rgb) / 0.20);
-    --bg-base-tertiary: rgb(var(--cb-glass-rgb) / 0.16);
-    --background-floating: rgb(var(--cb-floating-rgb) / 0.98);
-    --background-nested-floating: rgb(var(--cb-floating-rgb) / 0.98);
-    --bg-surface-overlay: rgb(var(--cb-floating-rgb) / 0.98);
-    --bg-surface-raised: rgb(var(--cb-floating-rgb) / 0.98);
-    --modal-background: rgb(var(--cb-floating-rgb) / 0.98);
-    --modal-footer-background: rgb(var(--cb-floating-rgb) / 0.98);
-    --channeltextarea-background: rgb(var(--cb-glass-rgb) / 0.46);
-    --background-modifier-hover: rgb(0 0 0 / 0.05);
-    --background-modifier-active: rgb(0 0 0 / 0.07);
-    --background-modifier-selected: rgb(0 0 0 / 0.08);
-    --background-message-hover: rgb(0 0 0 / 0.045);
-    --background-mentioned: color-mix(in srgb, var(--cb-accent) 9%, transparent);
-    --background-mentioned-hover: color-mix(in srgb, var(--cb-accent) 13%, transparent);
+/* ========================================================================
+   2. SOHBET / KANALLAR / UYELER — GERCEK AYARLANABILIR SAYDAMLIK
+   .visual-refresh'in #app-mount icinde olmasi sart degildir.
+   ======================================================================== */
+#app-mount :is([class*="chatContent_"], [class*="chat_"],
+               [class*="messagesWrapper_"], [class*="scrollerInner_"]) {
+    --bg-overlay-app-frame: transparent;
+    --background-primary: transparent;
+    --background-secondary: transparent;
+    --bg-base-primary: transparent;
+    --bg-base-secondary: transparent;
 }
 
-/* =====================================================================
-   2) CAM CALISMA ALANLARI
-   - Mesajlar ve uyeler icin ic ice coklu blur kullanilmaz.
-   - Sohbet alaninda kontrollu opaklik, metin kontrastini korur.
-   ===================================================================== */
-.visual-refresh :is(
-    [class*="chat_"],
-    [class*="messagesWrapper_"],
-    [class*="members_"]
-) {
+/* Eski CSS'de fotografin ustunu opaklastiran bu katmanlar temizlenir. */
+#app-mount :is([class*="messagesWrapper_"],
+               [class*="members_"],
+               [class*="scrollerInner_"]) {
     background-color: transparent !important;
 }
 
-.visual-refresh :is(
-    [class*="chatContent_"],
-    [class*="sidebarList_"],
-    [class*="membersWrap_"]
-) {
-    background: rgb(var(--cb-glass-rgb) / var(--cb-glass-opacity)) !important;
-    border: 1px solid var(--cb-border);
+#app-mount [class*="chatContent_"] {
+    background: rgb(var(--cb-glass-rgb) / var(--cb-chat-alpha)) !important;
+    border: 0 !important;
+    -webkit-backdrop-filter: blur(var(--cb-chat-blur));
+    backdrop-filter: blur(var(--cb-chat-blur));
+}
+
+#app-mount [class*="sidebarList_"] {
+    background: rgb(var(--cb-glass-rgb) / var(--cb-sidebar-alpha)) !important;
+    border: 0 !important;
     border-radius: var(--cb-radius);
-    -webkit-backdrop-filter: blur(var(--cb-glass-blur));
-    backdrop-filter: blur(var(--cb-glass-blur));
+    -webkit-backdrop-filter: blur(var(--cb-sidebar-blur));
+    backdrop-filter: blur(var(--cb-sidebar-blur));
 }
 
-/* Bosluk olmayan yerlerde kenar golgeleri tasmasin. */
-.visual-refresh :is([class*="sidebarList_"], [class*="membersWrap_"]) {
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.025);
+#app-mount [class*="membersWrap_"] {
+    background: rgb(var(--cb-glass-rgb) / var(--cb-members-alpha)) !important;
+    border: 0 !important;
+    -webkit-backdrop-filter: blur(var(--cb-sidebar-blur));
+    backdrop-filter: blur(var(--cb-sidebar-blur));
 }
 
-/* Metin kutusu: fotografin uzerinde de okunur. */
-.visual-refresh [class*="channelTextArea_"] {
-    background: rgb(var(--cb-glass-rgb) / var(--cb-input-opacity)) !important;
-    border: 1px solid var(--cb-border);
+/* Ust kanal basligi (butonlari okunakli, cok opak olmayan bant). */
+#app-mount [class*="chat_"] > [class*="title_"] {
+    background: rgb(var(--cb-glass-rgb) / var(--cb-header-alpha)) !important;
+    border-bottom: 1px solid var(--cb-line);
+}
+
+/* Mesaj giris kutusu: kısmi saydam, odak noktasi belirgin. */
+#app-mount [class*="channelTextArea_"] {
+    background: rgb(var(--cb-glass-rgb) / var(--cb-input-alpha)) !important;
+    border: 1px solid var(--cb-line) !important;
     border-radius: var(--cb-radius) !important;
-    transition: border-color var(--cb-transition) ease, box-shadow var(--cb-transition) ease;
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    transition: border-color var(--cb-transition) ease,
+                box-shadow var(--cb-transition) ease;
 }
-
-.visual-refresh [class*="channelTextArea_"]:focus-within {
-    border-color: var(--cb-accent-border);
+#app-mount [class*="channelTextArea_"]:focus-within {
+    border-color: var(--cb-accent-line) !important;
     box-shadow: 0 0 0 1px var(--cb-accent-soft);
 }
 
-/* =====================================================================
-   3) NITRO RENKLERI + KANAL/SUNUCU HOVER
-   Metin/ikon renklerini zorla degistirmiyoruz: Discord'un rengi kalir.
-   ===================================================================== */
-.visual-refresh [class*="containerDefault_"] [class*="link_"] {
-    border-radius: calc(var(--cb-radius) - 5px);
-    transition: background-color var(--cb-transition) ease,
-                box-shadow var(--cb-transition) ease,
-                transform var(--cb-transition) ease;
-}
-
-.visual-refresh [class*="containerDefault_"] [class*="link_"]:hover {
-    background-color: var(--cb-accent-soft) !important;
-    transform: translateX(2px);
-}
-
-.visual-refresh [class*="containerDefault_"] [class*="modeSelected_"] [class*="link_"],
-.visual-refresh [class*="containerDefault_"] [class*="link_"][aria-selected="true"] {
-    box-shadow: inset 3px 0 0 var(--cb-accent);
-    background-color: var(--cb-accent-soft) !important;
-}
-
-/* Arama, kullanici kontrolleri vb. butonlarda sakin hover. */
-.visual-refresh :is([class*="toolbar_"], [class*="panels_"]) :is(button, [role="button"]) {
-    transition: background-color var(--cb-transition) ease,
-                filter var(--cb-transition) ease,
-                transform var(--cb-transition) ease;
-}
-
-.visual-refresh :is([class*="toolbar_"], [class*="panels_"]) :is(button, [role="button"]):hover {
-    background-color: var(--cb-accent-soft) !important;
-    filter: brightness(1.07);
-}
-
-/* =====================================================================
-   4) MESAJ TASARIMI
-   Mesajlarin olculerine ve Discord'un mention isaretine dokunulmaz.
-   ===================================================================== */
-.visual-refresh [class*="messageListItem_"] [class*="message_"] {
+/* ========================================================================
+   3. MESAJLAR VE NITRO RENKLI HOVER — OLCEKLERE DOKUNMADAN
+   ======================================================================== */
+#app-mount [class*="messageListItem_"] [class*="message_"] {
+    border-left: 2px solid transparent;
     border-radius: var(--cb-message-radius);
     transition: background-color var(--cb-transition) ease,
+                border-color var(--cb-transition) ease,
                 box-shadow var(--cb-transition) ease;
 }
-
-.visual-refresh [class*="messageListItem_"] [class*="message_"]:hover,
-.visual-refresh [class*="messageListItem_"] [class*="message_"]:focus-within {
-    background-color: rgb(var(--cb-message-hover-rgb) / 0.065);
+#app-mount [class*="messageListItem_"] [class*="message_"]:is(:hover, :focus-within) {
+    background: rgb(var(--cb-hover-rgb) / var(--cb-message-hover-opacity)) !important;
+    border-left-color: var(--cb-accent-line);
+    box-shadow: inset 0 0 0 1px var(--cb-accent-soft);
 }
-
-/* Yanıt alintilari, rol/kanal etiketleri. */
-.visual-refresh [class*="repliedMessage_"] {
-    border-radius: 6px;
-    transition: background-color var(--cb-transition) ease;
-}
-
-.visual-refresh [class*="repliedMessage_"]:hover {
-    background-color: var(--cb-accent-soft);
-}
-
-.visual-refresh [class*="markup_"] :is(pre, blockquote) {
-    border-radius: 8px;
-    border-color: var(--cb-border);
-}
-
-.visual-refresh [class*="markup_"] pre {
-    background-color: rgb(var(--cb-glass-rgb) / 0.62) !important;
-    border: 1px solid var(--cb-border);
-}
-
-/* Etiketlerin kendi yazilari (ozellikle rol renkleri) degismiyor. */
-.visual-refresh [class*="markup_"] [class*="mention_"] {
+#app-mount [class*="repliedMessage_"] {
     border-radius: 5px;
     transition: background-color var(--cb-transition) ease;
 }
-
-/* =====================================================================
-   5) PROFIL, KAYAN MENU VE SES KONTROLLERI
-   Nitro profil banner'lari / profil renkleri korunsun diye profil
-   arka planina sabit !important renk BASILMIYOR.
-   ===================================================================== */
-.theme-dark :is([role="dialog"], [role="menu"]),
-.theme-light :is([role="dialog"], [role="menu"]) {
-    --background-base-lowest: rgb(var(--cb-floating-rgb) / 0.98);
-    --background-base-lower: rgb(var(--cb-floating-rgb) / 0.98);
-    --background-base-low: rgb(var(--cb-floating-rgb) / 0.98);
-    --background-primary: rgb(var(--cb-floating-rgb) / 0.98);
-    --background-secondary: rgb(var(--cb-floating-rgb) / 0.98);
-    --background-tertiary: rgb(var(--cb-floating-rgb) / 0.98);
-    --bg-base-primary: rgb(var(--cb-floating-rgb) / 0.98);
-    --bg-base-secondary: rgb(var(--cb-floating-rgb) / 0.98);
-    --bg-base-tertiary: rgb(var(--cb-floating-rgb) / 0.98);
-    --background-floating: rgb(var(--cb-floating-rgb) / 0.98);
+#app-mount [class*="repliedMessage_"]:hover {
+    background: var(--cb-accent-soft);
+}
+#app-mount [class*="markup_"] :is(pre, blockquote) {
+    border-radius: 8px;
+}
+#app-mount [class*="markup_"] pre {
+    background: rgb(var(--cb-glass-rgb) / 64%) !important;
+    border: 1px solid var(--cb-line);
+}
+#app-mount [class*="markup_"] [class*="mention_"] {
+    border-radius: 4px;
+    transition: background-color var(--cb-transition) ease;
 }
 
+/* Kanal hover'lari: Nitro rengine gore hafif, kayitirmali vurgu. */
+#app-mount [class*="containerDefault_"] [class*="link_"] {
+    border-radius: 7px;
+    transition: background-color var(--cb-transition) ease,
+                transform var(--cb-transition) ease,
+                box-shadow var(--cb-transition) ease;
+}
+#app-mount [class*="containerDefault_"] [class*="link_"]:hover {
+    background: var(--cb-accent-soft) !important;
+    transform: translateX(var(--cb-hover-shift));
+}
+#app-mount [class*="containerDefault_"] :is([class*="modeSelected_"], [aria-selected="true"]) [class*="link_"] {
+    box-shadow: inset 3px 0 0 var(--cb-accent);
+    background: var(--cb-accent-soft) !important;
+}
+
+#app-mount :is([class*="toolbar_"], [class*="panels_"]) :is(button, [role="button"]) {
+    transition: background-color var(--cb-transition) ease,
+                filter var(--cb-transition) ease;
+}
+#app-mount :is([class*="toolbar_"], [class*="panels_"]) :is(button, [role="button"]):hover {
+    background: var(--cb-accent-soft) !important;
+    filter: brightness(1.08);
+}
+
+/* ========================================================================
+   4. PROFIL / SES PANELI — BUTONLAR OKUNAKLI
+   ======================================================================== */
 :is(.user-profile-modal-v2, [class*="userPopoutOuter_"]) {
-    border: 1px solid var(--cb-border) !important;
+    border: 1px solid var(--cb-line) !important;
     border-radius: var(--cb-radius) !important;
-    box-shadow: var(--cb-shadow) !important;
+    box-shadow: var(--cb-soft-shadow) !important;
     overflow: hidden;
 }
-
-/* Farkli profillerin kendi temasi renkli kalir. */
+/* Nitro profil banner ve ozel renklerini zorla degistirmiyoruz. */
 :is(.user-profile-modal-v2, [class*="userPopoutOuter_"]) :is(button, [role="button"]) {
-    transition: filter var(--cb-transition) ease, transform var(--cb-transition) ease;
+    transition: filter var(--cb-transition) ease;
 }
-
 :is(.user-profile-modal-v2, [class*="userPopoutOuter_"]) :is(button, [role="button"]):hover {
     filter: brightness(1.08);
 }
 
-/* Alt kullanici / mikrofon / kulaklik / yayin bolumu. */
-[class*="panels_"] {
-    background:
-        linear-gradient(145deg, color-mix(in srgb, var(--cb-accent) 9%, transparent), transparent 58%),
-        rgb(var(--cb-panel-rgb) / var(--cb-panel-opacity)) !important;
-    border: 1px solid var(--cb-border) !important;
+#app-mount [class*="panels_"] {
+    background: linear-gradient(145deg,
+                    color-mix(in srgb, var(--cb-accent) 9%, transparent),
+                    transparent 60%),
+                rgb(var(--cb-panel-rgb) / var(--cb-panel-opacity)) !important;
+    border: 1px solid var(--cb-line) !important;
     border-radius: var(--cb-radius) !important;
-    box-shadow: var(--cb-shadow) !important;
+    box-shadow: var(--cb-soft-shadow) !important;
     -webkit-backdrop-filter: blur(var(--cb-panel-blur));
     backdrop-filter: blur(var(--cb-panel-blur));
     overflow: hidden;
 }
-
-.theme-dark [class*="panels_"] {
-    --header-primary: #f3f6ff;
-    --text-normal: #dce6fb;
-    --text-muted: #b3bfd6;
-    --interactive-normal: #d4dff5;
-    --interactive-hover: #fff;
+#app-mount [class*="panels_"] > :last-child {
+    background-color: rgb(var(--cb-panel-rgb) / var(--cb-panel-footer-opacity)) !important;
+    border-top: 1px solid var(--cb-line);
 }
-
-.theme-light [class*="panels_"] {
-    --header-primary: #18223a;
-    --text-normal: #263650;
-    --text-muted: #536381;
-    --interactive-normal: #344562;
-    --interactive-hover: #111a2d;
-}
-
-/* En alttaki isim/ayar satiri ikonlarini arka planda kaybetme. */
-[class*="panels_"] > :last-child {
-    background: rgb(var(--cb-panel-rgb) / var(--cb-panel-footer-opacity)) !important;
-    border-top: 1px solid var(--cb-border);
-}
-
-[class*="panels_"] :is(button, [role="button"]) svg {
+#app-mount [class*="panels_"] :is(button, [role="button"]) svg {
     opacity: 1 !important;
-    filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.25));
 }
 
-/* Mikrofon / kulaklik durumlarinin ikon renklerini koru. */
-
-/* =====================================================================
-   6) AYARLAR EKRANI CAM EFEKTI (v4.6.4 geri uyumlu)
-   ===================================================================== */
-:is([role="dialog"]:has([class*="sidebar_"]),
-    [class*="standardSidebarView_"],
-    [data-mana-component="layer-modal"]:has([class*="sidebar_"])) {
-    background-image:
-        radial-gradient(circle at 85% 5%, color-mix(in srgb, var(--cb-accent) 24%, transparent), transparent 52%),
-        linear-gradient(var(--cb-settings-overlay), var(--cb-settings-overlay)),
-        var(--wallpaper) !important;
-    background-position: center, center, var(--wallpaper-position) !important;
-    background-size: cover, cover, var(--wallpaper-size) !important;
-    background-repeat: no-repeat !important;
-    background-color: transparent !important;
-    border: 1px solid var(--cb-settings-edge) !important;
-    border-radius: calc(var(--cb-radius) + 2px) !important;
-    box-shadow: 0 24px 72px rgb(0 0 0 / 0.40) !important;
-    overflow: hidden;
-    /* Don't blur the wallpaper on its own containing element. */
-    --background-base-lowest: var(--cb-settings-surface) !important;
-    --background-base-lower: var(--cb-settings-surface) !important;
-    --background-base-low: var(--cb-settings-surface) !important;
-    --background-primary: var(--cb-settings-surface) !important;
-    --background-secondary: var(--cb-settings-surface) !important;
-    --background-tertiary: var(--cb-settings-surface) !important;
-    --bg-base-primary: var(--cb-settings-surface) !important;
-    --bg-base-secondary: var(--cb-settings-surface) !important;
-    --bg-base-tertiary: var(--cb-settings-surface) !important;
-    --modal-background: var(--cb-settings-surface) !important;
-    --input-background: var(--cb-settings-surface) !important;
-    --bg-overlay-app-frame: transparent !important;
-    --bg-overlay-2: transparent !important;
-    --bg-overlay-3: transparent !important;
-    --bg-overlay-4: transparent !important;
-    --background-modifier-hover: var(--cb-accent-soft) !important;
-    --background-modifier-selected: color-mix(in srgb, var(--cb-accent) 23%, transparent) !important;
+/* ========================================================================
+   5. TEMIZ AYARLAR / VENCORD THEMES (hicbir :has secicisi yok)
+   Diger profiller veya menuler icin global dialog stili kullanilmaz.
+   ======================================================================== */
+[class*="standardSidebarView_"] {
+    /* Eski v4.7'de iki yandaki ince cizgiler bu border'dan geliyordu. */
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+    background: rgb(var(--cb-glass-rgb) / var(--cb-settings-alpha)) !important;
 }
 
-:is([role="dialog"]:has([class*="sidebar_"]), [class*="standardSidebarView_"])
-:is([data-mana-component="modal"], [class*="standardSidebarView_"],
-    [class*="contentRegion_"], [class*="contentRegionScroller_"]) {
-    background: transparent !important;
+:is([class*="standardSidebarView_"], [role="dialog"]) [class*="sidebarRegion_"],
+:is([class*="standardSidebarView_"], [role="dialog"]) [class*="sidebarRegionScroller_"] {
+    background: rgb(var(--cb-glass-rgb) / var(--cb-settings-sidebar-alpha)) !important;
+    border-inline: 0 !important;
+    box-shadow: none !important;
+    min-width: 0;
 }
 
-/* Sol menu ayri ve daha opak, sag taraf yarisaydam. */
-:is([role="dialog"]:has([class*="sidebar_"]), [class*="standardSidebarView_"])
-:is([class*="sidebarRegion_"], [class*="sidebarRegionScroller_"]) {
-    background: var(--cb-settings-sidebar) !important;
+:is([class*="standardSidebarView_"], [role="dialog"]) [class*="contentRegion_"],
+:is([class*="standardSidebarView_"], [role="dialog"]) [class*="contentRegionScroller_"] {
+    background: rgb(var(--cb-glass-rgb) / var(--cb-settings-alpha)) !important;
+    border-inline: 0 !important;
+    box-shadow: none !important;
+    min-width: 0;
 }
 
-:is([role="dialog"]:has([class*="sidebar_"]), [class*="standardSidebarView_"])
-:is([class*="contentRegion_"], [class*="contentRegionScroller_"]) {
-    background-color: rgb(var(--cb-glass-rgb) / 0.16) !important;
+/* Sidebar akisini bozmadan arama kutusunun tam sigmasi. */
+:is([class*="standardSidebarView_"], [role="dialog"]) [class*="sidebarRegionScroller_"] {
+    box-sizing: border-box;
+    padding-top: 12px !important;
+}
+:is([class*="standardSidebarView_"], [role="dialog"]) [class*="sidebarRegion_"] :is([class*="searchBar"], [role="search"], [role="searchbox"]) {
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin-block: 9px 13px !important;
+}
+:is([class*="standardSidebarView_"], [role="dialog"]) [class*="sidebarRegion_"] input {
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+}
+:is([class*="standardSidebarView_"], [role="dialog"]) [class*="sidebarRegion_"] [class*="side_"] {
+    gap: 2px;
+}
+/* Baslik / profil ile arama alani yapismasin. */
+:is([class*="standardSidebarView_"], [role="dialog"]) [class*="sidebarRegionScroller_"] > :first-child {
+    margin-bottom: 10px;
 }
 
-:is([role="dialog"]:has([class*="sidebar_"]), [class*="standardSidebarView_"])
-[class*="contentRegion_"] [class*="card_"] {
-    background-color: var(--cb-settings-surface) !important;
-    border-color: var(--cb-settings-edge) !important;
-    border-radius: calc(var(--cb-radius) - 3px);
+/* Ayarlardaki kartlar ve inputlar: daha temiz, ince kenarliklar. */
+:is([class*="standardSidebarView_"], [role="dialog"]) [class*="contentRegion_"] [class*="card_"] {
+    border: 1px solid var(--cb-line) !important;
+    border-radius: 9px !important;
+    background: rgb(var(--cb-glass-rgb) / var(--cb-settings-alpha)) !important;
 }
-
-:is([role="dialog"]:has([class*="sidebar_"]), [class*="standardSidebarView_"])
-:is(input, textarea, select) {
-    background-color: var(--cb-settings-surface) !important;
-    border: 1px solid var(--cb-settings-edge) !important;
+:is([class*="standardSidebarView_"], [role="dialog"]) [class*="contentRegion_"] :is(input, textarea, select) {
+    background: rgb(var(--cb-glass-rgb) / var(--cb-settings-sidebar-alpha)) !important;
+    border: 1px solid var(--cb-line) !important;
+    border-radius: 8px;
+}
+:is([class*="standardSidebarView_"], [role="dialog"]) [aria-selected="true"] {
+    background: var(--cb-accent-soft) !important;
     border-radius: 7px;
 }
-
-:is([role="dialog"]:has([class*="sidebar_"]), [class*="standardSidebarView_"])
-[aria-selected="true"] {
-    background-color: color-mix(in srgb, var(--cb-accent) 22%, transparent) !important;
-    border-radius: 7px;
+/* Kartlarin efektleri kucuk: agir blur yok. */
+:is([class*="standardSidebarView_"], [role="dialog"]) [class*="contentRegion_"] button {
+    transition: background-color var(--cb-transition) ease,
+                filter var(--cb-transition) ease;
+}
+:is([class*="standardSidebarView_"], [role="dialog"]) [class*="contentRegion_"] button:hover {
+    filter: brightness(1.06);
 }
 
-/* =====================================================================
-   7) INCE KAYDIRMA CUBUKLARI (SINIRLI ALANLAR)
-   ===================================================================== */
-.visual-refresh :is([class*="scroller_"], [class*="scrollerBase_"]) {
+/* ========================================================================
+   6. ODAK/ERISILEBILIRLIK + PERFORMANS
+   ======================================================================== */
+#app-mount :is(button, [role="button"]):focus-visible {
+    outline: 2px solid var(--cb-accent-line);
+    outline-offset: 2px;
+}
+#app-mount :is([class*="scroller_"], [class*="scrollerBase_"]) {
     scrollbar-width: thin;
-    scrollbar-color: var(--cb-accent-border) transparent;
+    scrollbar-color: var(--cb-accent-line) transparent;
 }
 
 /* =============================================================
@@ -555,8 +477,8 @@ html.custom-theme-background body {
     justify-content: center !important;
 }
 
-/* Ayırıcılar ve sunucu arama butonu tam satır kaplasın. */
-#app-mount .wrapper_ef3116 .scroller_ef3116 > .stack_dbd263 > :is(#server-search, .listItem__650eb:has(.guildSeparator__252b6)) {
+/* Sunucu arama butonu tam satir kaplasin. :has() kullanilmiyor. */
+#app-mount .wrapper_ef3116 .scroller_ef3116 > .stack_dbd263 > #server-search {
     grid-column: 1 / -1 !important;
     width: var(--cb-server-grid-width) !important;
     max-width: var(--cb-server-grid-width) !important;
@@ -587,212 +509,37 @@ html.custom-theme-background body {
     margin: 0 !important;
 }
 
-/* =====================================================================
-   8) SUNUCU GORSEL EFEKTLERI (v4.6.4 sutun yapisi DEGISMEDI)
-   ===================================================================== */
+
+
+/* ========================================================================
+   7. SUNUCU IKONLARI HOVER
+   ======================================================================== */
 #app-mount .wrapper_ef3116 :is(.wrapper_cc5dd2, .folderHeader__48112) {
-    transition: transform var(--cb-transition) ease,
-                filter var(--cb-transition) ease;
+    transition: transform var(--cb-transition) ease, filter var(--cb-transition) ease;
 }
-
 #app-mount .wrapper_ef3116 :is(.wrapper_cc5dd2, .folderHeader__48112):hover {
-    transform: translateY(var(--cb-hover-lift)) scale(1.035);
-    filter: brightness(1.05);
+    transform: translateY(-1px) scale(1.035);
+    filter: brightness(1.08);
 }
-
-/* Gorsel akicilik ve erisilebilirlik. Sadece etkilenen secicileri hedefle. */
 @media (prefers-reduced-motion: reduce) {
     :root {
         --cb-transition: 0ms;
-        --cb-hover-lift: 0px;
-        --cb-glass-blur: 0px;
+        --cb-hover-shift: 0px;
+        --cb-sidebar-blur: 0px;
         --cb-panel-blur: 0px;
     }
-
-    .visual-refresh [class*="containerDefault_"] [class*="link_"]:hover {
-        transform: none;
-    }
-
     #app-mount .wrapper_ef3116 :is(.wrapper_cc5dd2, .folderHeader__48112):hover {
         transform: none;
     }
-}
-
-/* Eski sistemler: backdrop-filter bulunmasa da opak zemin kalir. */
-@supports not (backdrop-filter: blur(1px)) {
-    .visual-refresh :is([class*="chatContent_"], [class*="sidebarList_"], [class*="membersWrap_"]) {
-        background: rgb(var(--cb-glass-rgb) / var(--cb-glass-opacity)) !important;
+    #app-mount [class*="containerDefault_"] [class*="link_"]:hover {
+        transform: none;
     }
 }
-
-/* =====================================================================
-   9) v4.7.2 AYARLANABILIR GLASS FIX
-   Neden: v4.7 sohbet zemini + Discord overlay katmanlari ust uste
-   gelince fotograf bulanik ve soluk gorunuyordu. Bu bolumde zemin
-   tekilleştirilir. Nitro renkleri ve tum ses kontrolleri korunur.
-   ===================================================================== */
-
-/* Gercek duvar kagidi Discord'un kendi pencere kabugu altinda da kalir.
-   Renk gradyaninin sadece saydam bir tint olmasini sagliyoruz. */
-body,
-#app-mount {
-    background-image:
-        linear-gradient(rgb(0 0 0 / var(--cb-wallpaper-dim)), rgb(0 0 0 / var(--cb-wallpaper-dim))),
-        var(--wallpaper) !important;
-    background-size: cover, var(--wallpaper-size) !important;
-    background-position: center, var(--wallpaper-position) !important;
-    background-repeat: no-repeat !important;
-    background-attachment: scroll, fixed !important;
-    background-color: rgb(12 17 29) !important; /* Resim yuklenmezse guvenli zemin */
-}
-
-/* Uygulama kabuklarinin ikincil, opak zemine donusmesini engelle. */
-#app-mount > [class*="app_"],
-#app-mount > [class*="app_"] > [class*="app_"],
-#app-mount [class*="baseLayer_"] {
-    background-color: transparent !important;
-}
-
-/* Nitro'nun secilen rengini ikonlar, mesaj etiketleri ve hover'da koru;
-   fakat koyu, opak gradient overlay katmanlarini azalt. */
-:is(.visual-refresh, .visual-refresh.theme-dark, .visual-refresh.theme-light,
-    .visual-refresh .theme-dark, .visual-refresh .theme-light) {
-    --bg-overlay-app-frame: transparent !important;
-    --bg-overlay-1: transparent !important;
-    --bg-overlay-2: transparent !important;
-    --bg-overlay-3: transparent !important;
-    --bg-overlay-4: transparent !important;
-    --custom-channel-members-bg: transparent !important;
-}
-
-/* Sadece ana sohbet calisma alani: ekstra arka plan degiskenlerini
-   sifirlamak, Discord'un ana temasi ile etkilerin iki kat koyulmasini onler. */
-#app-mount .visual-refresh :is([class*="chat_"], [class*="chatContent_"],
-    [class*="messagesWrapper_"], [class*="membersWrap_"], [class*="sidebarList_"]) {
-    --background-primary: transparent !important;
-    --background-secondary: transparent !important;
-    --background-tertiary: transparent !important;
-    --bg-base-primary: transparent !important;
-    --bg-base-secondary: transparent !important;
-    --bg-base-tertiary: transparent !important;
-    --background-base-lowest: transparent !important;
-    --background-base-lower: transparent !important;
-    --background-base-low: transparent !important;
-}
-
-/* Ic katmanlar fazladan siyah blok cizmesin. */
-#app-mount .visual-refresh :is(
-    [class*="chat_"], [class*="messagesWrapper_"], [class*="scrollerInner_"],
-    [class*="members_"], [class*="sidebarList_"] [class*="scroller_"],
-    [class*="chatContent_"] [class*="scroller_"]
-) {
-    background-color: transparent !important;
-}
-
-/* ANA SOHBET: blur neredeyse yok, arka plan daha net.
-   Panelin rengi hem Nitro'ya uyumlu hem minimum tint. */
-#app-mount .visual-refresh [class*="chatContent_"] {
-    background:
-        linear-gradient(140deg,
-            color-mix(in srgb, var(--cb-accent) 4%, transparent),
-            transparent 50%),
-        rgb(var(--cb-glass-rgb) / var(--cb-chat-opacity)) !important;
-    border: 1px solid var(--cb-border) !important;
-    border-radius: var(--cb-radius) !important;
-    -webkit-backdrop-filter: blur(var(--cb-chat-blur)) !important;
-    backdrop-filter: blur(var(--cb-chat-blur)) !important;
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.035);
-}
-
-/* KANAL LISTESI: okunurluk icin sohbetten biraz daha koyu. */
-#app-mount .visual-refresh [class*="sidebarList_"] {
-    background:
-        linear-gradient(160deg,
-            color-mix(in srgb, var(--cb-accent) 7%, transparent),
-            transparent 43%),
-        rgb(var(--cb-glass-rgb) / var(--cb-sidebar-opacity)) !important;
-    border: 1px solid var(--cb-border) !important;
-    border-radius: var(--cb-radius) !important;
-    -webkit-backdrop-filter: blur(var(--cb-sidebar-blur)) !important;
-    backdrop-filter: blur(var(--cb-sidebar-blur)) !important;
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.04);
-}
-
-/* UYE LISTESI: fotografin ustunde isimler hala okunur. */
-#app-mount .visual-refresh [class*="membersWrap_"] {
-    background: rgb(var(--cb-glass-rgb) / var(--cb-members-opacity)) !important;
-    border: 1px solid var(--cb-border) !important;
-    border-radius: var(--cb-radius) !important;
-    -webkit-backdrop-filter: blur(var(--cb-members-blur)) !important;
-    backdrop-filter: blur(var(--cb-members-blur)) !important;
-}
-
-/* Ust sohbet basligi: seffaf ama dugmeleri okunakli. */
-#app-mount .visual-refresh [class*="chat_"] > [class*="title_"] {
-    background: rgb(var(--cb-glass-rgb) / var(--cb-header-opacity)) !important;
-    border-bottom: 1px solid var(--cb-border);
-}
-
-/* Mesaj kartlarini varsayilan halde opaklastirma; sadece hover'da vurgu. */
-#app-mount .visual-refresh [class*="messageListItem_"] [class*="message_"] {
-    border-left: 2px solid transparent;
-    border-radius: var(--cb-message-radius);
-}
-#app-mount .visual-refresh [class*="messageListItem_"] [class*="message_"]:is(:hover, :focus-within) {
-    background: rgb(var(--cb-message-hover-rgb) / var(--cb-message-hover-opacity)) !important;
-    border-left-color: var(--cb-accent-border);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cb-accent) 9%, transparent);
-}
-
-/* Yazma kutusu: gorunur ve kontrollu cam, odakta Nitro ince cerceve. */
-#app-mount .visual-refresh [class*="channelTextArea_"] {
-    background: rgb(var(--cb-glass-rgb) / var(--cb-input-opacity)) !important;
-    border: 1px solid var(--cb-border) !important;
-    border-radius: var(--cb-radius) !important;
-    -webkit-backdrop-filter: blur(var(--cb-input-blur));
-    backdrop-filter: blur(var(--cb-input-blur));
-}
-#app-mount .visual-refresh [class*="channelTextArea_"]:focus-within {
-    border-color: var(--cb-accent-border) !important;
-    box-shadow: 0 0 0 1px var(--cb-accent-soft);
-}
-
-/* Ses bolumu bilerek daha opak: mikrofon, kulaklik ve yayina zarar yok. */
-#app-mount [class*="panels_"] {
-    background:
-        linear-gradient(135deg,
-            color-mix(in srgb, var(--cb-accent) 12%, transparent),
-            transparent 65%),
-        rgb(var(--cb-panel-rgb) / var(--cb-panel-opacity)) !important;
-    -webkit-backdrop-filter: blur(var(--cb-panel-blur));
-    backdrop-filter: blur(var(--cb-panel-blur));
-}
-
-/* Acik temada da ayni yuzdelik kontrol calisir. */
-.theme-light {
-    --cb-wallpaper-dim: 0;
-}
-
-/* Hareket ve performans: foto net, asiri backdrop blur yok. */
-@media (prefers-reduced-motion: reduce) {
-    :root {
-        --cb-chat-blur: 0px;
-        --cb-sidebar-blur: 0px;
-        --cb-members-blur: 0px;
-    }
-}
-
-/* @supports sadece ornek tarayici desteği degil, performansli fallback. */
 @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-    #app-mount .visual-refresh [class*="chatContent_"] {
-        background: rgb(var(--cb-glass-rgb) / var(--cb-chat-opacity)) !important;
+    #app-mount [class*="sidebarList_"] {
+        background: rgb(var(--cb-glass-rgb) / var(--cb-sidebar-alpha)) !important;
     }
-    #app-mount .visual-refresh [class*="sidebarList_"] {
-        background: rgb(var(--cb-glass-rgb) / var(--cb-sidebar-opacity)) !important;
-    }
-    #app-mount .visual-refresh [class*="membersWrap_"] {
-        background: rgb(var(--cb-glass-rgb) / var(--cb-members-opacity)) !important;
+    #app-mount [class*="panels_"] {
+        background: rgb(var(--cb-panel-rgb) / var(--cb-panel-opacity)) !important;
     }
 }
-
-/* v4.7.2 | CSS-only: baska CSS dosyasi / JS / harici kutuphane yok. */
