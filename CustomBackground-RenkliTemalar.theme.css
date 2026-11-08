@@ -1,142 +1,3 @@
-/**
- * @name Custom Background - Renkli Temalar
- * @author finnecre (orijinal), ChatGPT (renkli tema uyarlaması)
- * @version 4.6.1
- * @description Discord duvar kağıdı, açık/koyu ve Nitro özel renk temaları, isteğe bağlı sunucu sütunları.
- */
-
-@import url('https://raw.githubusercontent.com/finnecre/servercolumns/refs/heads/main/servercolumns.css');
-
-/* CUSTOMISE HERE */
-:root {
-    --wallpaper: url('WALLPAPER-LINK');
-    --columns: 0;
-}
-
-/* SETTINGS */
-:root {
-    --wallpaper-size: cover;
-    --wallpaper-position: center;
-    --guildgap: 3;
-    --aligndms: 0;
-}
-
-/* WALLPAPER */
-body {
-    background-image: var(--wallpaper);
-    background-size: var(--wallpaper-size);
-    background-position: var(--wallpaper-position);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
-
-#app-mount {
-    background: transparent !important;
-}
-
-#app-mount > [class*="app_"] > [class*="app_"] > [class*="bg_"] {
-    background: transparent !important;
-}
-
-/* LIGHT MODE */
-.theme-light {
-    --background-base-lowest: rgba(255, 255, 255, 0.32);
-    --background-base-lower: rgba(255, 255, 255, 0.25);
-    --background-base-low: rgba(255, 255, 255, 0.20);
-    --background-primary: rgba(255, 255, 255, 0.25);
-    --background-secondary: rgba(255, 255, 255, 0.20);
-    --background-secondary-alt: rgba(255, 255, 255, 0.16);
-    --background-tertiary: rgba(255, 255, 255, 0.14);
-    --bg-base-primary: rgba(255, 255, 255, 0.25);
-    --bg-base-secondary: rgba(255, 255, 255, 0.20);
-    --bg-base-tertiary: rgba(255, 255, 255, 0.16);
-    --background-floating: rgb(255, 255, 255);
-    --background-nested-floating: rgb(255, 255, 255);
-    --bg-surface-overlay: rgb(255, 255, 255);
-    --bg-surface-raised: rgb(255, 255, 255);
-    --modal-background: rgb(255, 255, 255);
-    --modal-footer-background: rgb(245, 245, 245);
-    --channeltextarea-background: rgba(255, 255, 255, 0.38);
-    --background-modifier-hover: rgba(0, 0, 0, 0.05);
-    --background-modifier-active: rgba(0, 0, 0, 0.07);
-    --background-modifier-selected: rgba(0, 0, 0, 0.08);
-}
-
-/* DARK MODE */
-.theme-dark {
-    --background-base-lowest: rgba(0, 0, 0, 0.35);
-    --background-base-lower: rgba(0, 0, 0, 0.28);
-    --background-base-low: rgba(0, 0, 0, 0.22);
-    --background-primary: rgba(0, 0, 0, 0.28);
-    --background-secondary: rgba(0, 0, 0, 0.24);
-    --background-secondary-alt: rgba(0, 0, 0, 0.20);
-    --background-tertiary: rgba(0, 0, 0, 0.18);
-    --bg-base-primary: rgba(0, 0, 0, 0.28);
-    --bg-base-secondary: rgba(0, 0, 0, 0.24);
-    --bg-base-tertiary: rgba(0, 0, 0, 0.20);
-    --background-floating: rgb(20, 20, 20);
-    --background-nested-floating: rgb(20, 20, 20);
-    --bg-surface-overlay: rgb(20, 20, 20);
-    --bg-surface-raised: rgb(20, 20, 20);
-    --modal-background: rgb(20, 20, 20);
-    --modal-footer-background: rgb(15, 15, 15);
-    --channeltextarea-background: rgba(0, 0, 0, 0.32);
-    --background-modifier-hover: rgba(255, 255, 255, 0.05);
-    --background-modifier-active: rgba(255, 255, 255, 0.07);
-    --background-modifier-selected: rgba(255, 255, 255, 0.08);
-}
-
-/* NORMAL DISCORD WORKSPACE */
-.visual-refresh [class*="chat_"],
-.visual-refresh [class*="chatContent_"],
-.visual-refresh [class*="messagesWrapper_"],
-.visual-refresh [class*="sidebarList_"],
-.visual-refresh [class*="membersWrap_"],
-.visual-refresh [class*="members_"] {
-    background-color: transparent !important;
-}
-
-/* SETTINGS / FULL OPACITY */
-.theme-light [role="dialog"]:has([class*="sidebar_"]) [data-mana-component="modal"],
-.theme-light [role="dialog"]:has([class*="sidebar_"]) [class*="container_"] {
-    background: rgb(255, 255, 255) !important;
-}
-
-.theme-dark [role="dialog"]:has([class*="sidebar_"]) [data-mana-component="modal"],
-.theme-dark [role="dialog"]:has([class*="sidebar_"]) [class*="container_"] {
-    background: rgb(20, 20, 20) !important;
-}
-
-/* POPOUTS / MENUS / DIALOGS */
-.theme-light [role="dialog"],
-.theme-light [role="menu"] {
-    --background-base-lowest: rgb(255, 255, 255);
-    --background-base-lower: rgb(255, 255, 255);
-    --background-base-low: rgb(250, 250, 250);
-    --background-primary: rgb(255, 255, 255);
-    --background-secondary: rgb(250, 250, 250);
-    --background-tertiary: rgb(245, 245, 245);
-    --bg-base-primary: rgb(255, 255, 255);
-    --bg-base-secondary: rgb(250, 250, 250);
-    --bg-base-tertiary: rgb(245, 245, 245);
-    --background-floating: rgb(255, 255, 255);
-}
-
-.theme-dark [role="dialog"],
-.theme-dark [role="menu"] {
-    --background-base-lowest: rgb(20, 20, 20);
-    --background-base-lower: rgb(20, 20, 20);
-    --background-base-low: rgb(24, 24, 24);
-    --background-primary: rgb(20, 20, 20);
-    --background-secondary: rgb(24, 24, 24);
-    --background-tertiary: rgb(28, 28, 28);
-    --bg-base-primary: rgb(20, 20, 20);
-    --bg-base-secondary: rgb(24, 24, 24);
-    --bg-base-tertiary: rgb(28, 28, 28);
-    --background-floating: rgb(20, 20, 20);
-}
-
-/* USER PROFILE MODAL */
 .theme-light [class*="user-profile-"],
 .theme-light .user-profile-modal-v2,
 .theme-light .user-profile-modal-v2 [class*="profileHeader_"],
@@ -196,3 +57,72 @@ html.custom-theme-background body {
     background-repeat: no-repeat !important;
     background-attachment: fixed !important;
 }
+
+/* ===========================================================
+   SETTINGS GLASS - Discord / Vencord
+   Duvar kagidini ayarlarda da gosterir, Nitro vurgu rengini korur.
+   =========================================================== */
+:root {
+    --cb-settings-overlay: rgba(10, 15, 28, 0.66);
+    --cb-settings-sidebar: rgba(10, 15, 28, 0.56);
+    --cb-settings-surface: rgba(16, 22, 37, 0.48);
+    --cb-settings-edge: rgba(255, 255, 255, 0.10);
+}
+
+.theme-light {
+    --cb-settings-overlay: rgba(247, 249, 255, 0.72);
+    --cb-settings-sidebar: rgba(244, 247, 255, 0.60);
+    --cb-settings-surface: rgba(255, 255, 255, 0.56);
+    --cb-settings-edge: rgba(23, 34, 62, 0.10);
+}
+
+/* Ayarlarin hem eski tam ekran duzeni hem yeni diyalog duzeni. */
+:is([role="dialog"]:has([class*="sidebar_"]),
+    [class*="standardSidebarView_"],
+    [data-mana-component="layer-modal"]:has([class*="sidebar_"])) {
+    background-image:
+        radial-gradient(circle at 85% 5%, color-mix(in srgb, var(--brand-500, #6478f5) 24%, transparent), transparent 52%),
+        linear-gradient(var(--cb-settings-overlay), var(--cb-settings-overlay)),
+        var(--wallpaper) !important;
+    background-position: center, center, var(--wallpaper-position, center) !important;
+    background-size: cover, cover, var(--wallpaper-size, cover) !important;
+    background-repeat: no-repeat !important;
+    background-color: transparent !important;
+
+    --background-base-lowest: var(--cb-settings-surface) !important;
+    --background-base-lower: var(--cb-settings-surface) !important;
+    --background-base-low: var(--cb-settings-surface) !important;
+    --background-primary: var(--cb-settings-surface) !important;
+    --background-secondary: var(--cb-settings-surface) !important;
+    --background-tertiary: var(--cb-settings-surface) !important;
+    --bg-base-primary: var(--cb-settings-surface) !important;
+    --bg-base-secondary: var(--cb-settings-surface) !important;
+    --bg-base-tertiary: var(--cb-settings-surface) !important;
+    --modal-background: var(--cb-settings-surface) !important;
+    --bg-overlay-app-frame: transparent !important;
+    --bg-overlay-2: transparent !important;
+    --bg-overlay-3: transparent !important;
+    --bg-overlay-4: transparent !important;
+}
+
+/* Opak kabuklarin duvar kagidini ortmesini engelle. */
+[role="dialog"]:has([class*="sidebar_"]) [data-mana-component="modal"],
+[role="dialog"]:has([class*="sidebar_"]) [class*="standardSidebarView_"],
+[role="dialog"]:has([class*="sidebar_"]) [class*="contentRegion_"],
+[role="dialog"]:has([class*="sidebar_"]) [class*="contentRegionScroller_"],
+[class*="standardSidebarView_"] [class*="contentRegion_"],
+[class*="standardSidebarView_"] [class*="contentRegionScroller_"] {
+    background: transparent !important;
+}
+
+/* Sol ayar menusu: yarı saydam cam. */
+[role="dialog"]:has([class*="sidebar_"]) [class*="sidebarRegion_"],
+[role="dialog"]:has([class*="sidebar_"]) [class*="sidebarRegionScroller_"],
+[class*="standardSidebarView_"] [class*="sidebarRegion_"],
+[class*="standardSidebarView_"] [class*="sidebarRegionScroller_"] {
+    background: var(--cb-settings-sidebar) !important;
+}
+
+/* Kucuk ayar kartlarina yumusak yuzey; vurgu rengi Nitro'dan gelir. */
+[role="dialog"]:has([class*="sidebar_"]) [class*="contentRegion_"] [class*="card_"],
+[class*="standardSidebarView_"] [class*="contentRegion_"] [class*="card_"] {
