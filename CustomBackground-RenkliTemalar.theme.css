@@ -1,12 +1,12 @@
 /**
  * @name Custom Background - Renkli Temalar
  * @author Eneskkaya75 (ozellestirme), finnecre (ilk tema fikri)
- * @version 4.7.0
- * @description Harici CSS import olmadan Nitro uyumlu duvar kagidi, cam paneller, mikro animasyonlar, mesaj/profil tasarimi ve coklu sunucu sutunlari.
+ * @version 4.7.1
+ * @description Daha net arka plan, dengeli cam saydamligi, Nitro renkleri, modern paneller ve coklu sunucu sutunlari. Harici CSS import yok.
  */
 
 /* =====================================================================
-   v4.7 | MERKEZI AYARLAR
+   v4.7.1 | MERKEZI AYARLAR
    Bu bolumdeki degerleri degistirmen yeterli. Harici CSS baglantisi YOK.
    - Wallpaper icin gercek bir resim URL'si yaz.
    - --columns: 0 / 1 = tek sutun; 2+ = coklu sutun.
@@ -23,17 +23,29 @@
     --aligndms: 0;
 
     /* Cam gorunumu */
-    --cb-glass-opacity: 0.58;
-    --cb-glass-blur: 12px;
-    --cb-panel-opacity: 0.92;
-    --cb-panel-blur: 14px;
-    --cb-workspace-opacity: 0.28;
+    --cb-glass-opacity: 0.33; /* Genel cam katmani */
+    --cb-glass-blur: 4px; /* Resim artik fazla bulanik degil */
+    --cb-panel-opacity: 0.92; /* Ses kontrol dugmeleri net kalsin */
+    --cb-panel-blur: 8px;
+    --cb-workspace-opacity: 0.10;
+    /* Ana transparanlik ayarlari (0 = saydam, 1 = opak):
+       Sohbet 0.16, kanal listesi 0.40, uye listesi 0.32.
+       Fotograf fazla baskinsa her birini 0.05 - 0.10 arttir. */
+    --cb-chat-opacity: 0.16;
+    --cb-sidebar-opacity: 0.40;
+    --cb-members-opacity: 0.32;
+    --cb-header-opacity: 0.38;
+    --cb-wallpaper-dim: 0.04; /* 0 = resme dokunma, 0.10 = hafif karart */
+    --cb-chat-blur: 0px; /* Ana sohbetin arka planini NET goster */
+    --cb-sidebar-blur: 6px;
+    --cb-members-blur: 5px;
+    --cb-message-hover-opacity: 0.075;
     --cb-radius: 13px;
     --cb-message-radius: 10px;
 
     /* Nitro'nun kendi marka/tema rengini kullan. */
     --cb-accent: var(--brand-500, #6575e9);
-    --cb-accent-strength: 18%;
+    --cb-accent-strength: 22%;
     --cb-transition: 170ms;
     --cb-hover-lift: -1px;
 
@@ -590,4 +602,178 @@ html.custom-theme-background body {
     }
 }
 
-/* v4.7.0 | CSS-only: baska CSS dosyasi / JS / harici kutuphane yok. */
+/* =====================================================================
+   9) v4.7.1 GORUNUR GLASS FIX
+   Neden: v4.7 sohbet zemini + Discord overlay katmanlari ust uste
+   gelince fotograf bulanik ve soluk gorunuyordu. Bu bolumde zemin
+   tekilleştirilir. Nitro renkleri ve tum ses kontrolleri korunur.
+   ===================================================================== */
+
+/* Gercek duvar kagidi Discord'un kendi pencere kabugu altinda da kalir.
+   Renk gradyaninin sadece saydam bir tint olmasini sagliyoruz. */
+body,
+#app-mount {
+    background-image:
+        linear-gradient(rgb(0 0 0 / var(--cb-wallpaper-dim)), rgb(0 0 0 / var(--cb-wallpaper-dim))),
+        var(--wallpaper) !important;
+    background-size: cover, var(--wallpaper-size) !important;
+    background-position: center, var(--wallpaper-position) !important;
+    background-repeat: no-repeat !important;
+    background-attachment: scroll, fixed !important;
+    background-color: rgb(12 17 29) !important; /* Resim yuklenmezse guvenli zemin */
+}
+
+/* Uygulama kabuklarinin ikincil, opak zemine donusmesini engelle. */
+#app-mount > [class*="app_"],
+#app-mount > [class*="app_"] > [class*="app_"],
+#app-mount [class*="baseLayer_"] {
+    background-color: transparent !important;
+}
+
+/* Nitro'nun secilen rengini ikonlar, mesaj etiketleri ve hover'da koru;
+   fakat koyu, opak gradient overlay katmanlarini azalt. */
+:is(.visual-refresh, .visual-refresh.theme-dark, .visual-refresh.theme-light,
+    .visual-refresh .theme-dark, .visual-refresh .theme-light) {
+    --bg-overlay-app-frame: transparent !important;
+    --bg-overlay-1: transparent !important;
+    --bg-overlay-2: transparent !important;
+    --bg-overlay-3: transparent !important;
+    --bg-overlay-4: transparent !important;
+    --custom-channel-members-bg: transparent !important;
+}
+
+/* Sadece ana sohbet calisma alani: ekstra arka plan degiskenlerini
+   sifirlamak, Discord'un ana temasi ile etkilerin iki kat koyulmasini onler. */
+#app-mount .visual-refresh :is([class*="chat_"], [class*="chatContent_"],
+    [class*="messagesWrapper_"], [class*="membersWrap_"], [class*="sidebarList_"]) {
+    --background-primary: transparent !important;
+    --background-secondary: transparent !important;
+    --background-tertiary: transparent !important;
+    --bg-base-primary: transparent !important;
+    --bg-base-secondary: transparent !important;
+    --bg-base-tertiary: transparent !important;
+    --background-base-lowest: transparent !important;
+    --background-base-lower: transparent !important;
+    --background-base-low: transparent !important;
+}
+
+/* Ic katmanlar fazladan siyah blok cizmesin. */
+#app-mount .visual-refresh :is(
+    [class*="chat_"], [class*="messagesWrapper_"], [class*="scrollerInner_"],
+    [class*="members_"], [class*="sidebarList_"] [class*="scroller_"],
+    [class*="chatContent_"] [class*="scroller_"]
+) {
+    background-color: transparent !important;
+}
+
+/* ANA SOHBET: blur neredeyse yok, arka plan daha net.
+   Panelin rengi hem Nitro'ya uyumlu hem minimum tint. */
+#app-mount .visual-refresh [class*="chatContent_"] {
+    background:
+        linear-gradient(140deg,
+            color-mix(in srgb, var(--cb-accent) 4%, transparent),
+            transparent 50%),
+        rgb(var(--cb-glass-rgb) / var(--cb-chat-opacity)) !important;
+    border: 1px solid var(--cb-border) !important;
+    border-radius: var(--cb-radius) !important;
+    -webkit-backdrop-filter: blur(var(--cb-chat-blur)) !important;
+    backdrop-filter: blur(var(--cb-chat-blur)) !important;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.035);
+}
+
+/* KANAL LISTESI: okunurluk icin sohbetten biraz daha koyu. */
+#app-mount .visual-refresh [class*="sidebarList_"] {
+    background:
+        linear-gradient(160deg,
+            color-mix(in srgb, var(--cb-accent) 7%, transparent),
+            transparent 43%),
+        rgb(var(--cb-glass-rgb) / var(--cb-sidebar-opacity)) !important;
+    border: 1px solid var(--cb-border) !important;
+    border-radius: var(--cb-radius) !important;
+    -webkit-backdrop-filter: blur(var(--cb-sidebar-blur)) !important;
+    backdrop-filter: blur(var(--cb-sidebar-blur)) !important;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.04);
+}
+
+/* UYE LISTESI: fotografin ustunde isimler hala okunur. */
+#app-mount .visual-refresh [class*="membersWrap_"] {
+    background: rgb(var(--cb-glass-rgb) / var(--cb-members-opacity)) !important;
+    border: 1px solid var(--cb-border) !important;
+    border-radius: var(--cb-radius) !important;
+    -webkit-backdrop-filter: blur(var(--cb-members-blur)) !important;
+    backdrop-filter: blur(var(--cb-members-blur)) !important;
+}
+
+/* Ust sohbet basligi: seffaf ama dugmeleri okunakli. */
+#app-mount .visual-refresh [class*="chat_"] > [class*="title_"] {
+    background: rgb(var(--cb-glass-rgb) / var(--cb-header-opacity)) !important;
+    border-bottom: 1px solid var(--cb-border);
+}
+
+/* Mesaj kartlarini varsayilan halde opaklastirma; sadece hover'da vurgu. */
+#app-mount .visual-refresh [class*="messageListItem_"] [class*="message_"] {
+    border-left: 2px solid transparent;
+    border-radius: var(--cb-message-radius);
+}
+#app-mount .visual-refresh [class*="messageListItem_"] [class*="message_"]:is(:hover, :focus-within) {
+    background: rgb(var(--cb-message-hover-rgb) / var(--cb-message-hover-opacity)) !important;
+    border-left-color: var(--cb-accent-border);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cb-accent) 9%, transparent);
+}
+
+/* Yazma kutusu: gorunur ve kontrollu cam, odakta Nitro ince cerceve. */
+#app-mount .visual-refresh [class*="channelTextArea_"] {
+    background: rgb(var(--cb-glass-rgb) / 0.58) !important;
+    border: 1px solid var(--cb-border) !important;
+    border-radius: var(--cb-radius) !important;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+}
+#app-mount .visual-refresh [class*="channelTextArea_"]:focus-within {
+    border-color: var(--cb-accent-border) !important;
+    box-shadow: 0 0 0 1px var(--cb-accent-soft);
+}
+
+/* Ses bolumu bilerek daha opak: mikrofon, kulaklik ve yayina zarar yok. */
+#app-mount [class*="panels_"] {
+    background:
+        linear-gradient(135deg,
+            color-mix(in srgb, var(--cb-accent) 12%, transparent),
+            transparent 65%),
+        rgb(var(--cb-panel-rgb) / var(--cb-panel-opacity)) !important;
+    -webkit-backdrop-filter: blur(var(--cb-panel-blur));
+    backdrop-filter: blur(var(--cb-panel-blur));
+}
+
+/* Acik temada karartma kalksin ve renkli kenarliklar yumusasin. */
+.theme-light {
+    --cb-wallpaper-dim: 0;
+    --cb-chat-opacity: 0.23;
+    --cb-sidebar-opacity: 0.54;
+    --cb-members-opacity: 0.47;
+    --cb-header-opacity: 0.50;
+}
+
+/* Hareket ve performans: foto net, asiri backdrop blur yok. */
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --cb-chat-blur: 0px;
+        --cb-sidebar-blur: 0px;
+        --cb-members-blur: 0px;
+    }
+}
+
+/* @supports sadece ornek tarayici desteği degil, performansli fallback. */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    #app-mount .visual-refresh [class*="chatContent_"] {
+        background: rgb(var(--cb-glass-rgb) / 0.28) !important;
+    }
+    #app-mount .visual-refresh [class*="sidebarList_"] {
+        background: rgb(var(--cb-glass-rgb) / 0.62) !important;
+    }
+    #app-mount .visual-refresh [class*="membersWrap_"] {
+        background: rgb(var(--cb-glass-rgb) / 0.55) !important;
+    }
+}
+
+/* v4.7.1 | CSS-only: baska CSS dosyasi / JS / harici kutuphane yok. */
