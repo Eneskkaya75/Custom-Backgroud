@@ -1,61 +1,81 @@
 /**
  * @name Custom Background - Renkli Temalar
  * @author Eneskkaya75 (ozellestirme), finnecre (ilk tema fikri)
- * @version 4.7.1
- * @description Daha net arka plan, dengeli cam saydamligi, Nitro renkleri, modern paneller ve coklu sunucu sutunlari. Harici CSS import yok.
+ * @version 4.7.2
+ * @description Tek ayardan yuzdelik saydamlik, bolgesel ince ayarlar, Nitro renkleri ve sunucu sutunlari. Harici CSS import yok.
  */
 
 /* =====================================================================
-   v4.7.1 | MERKEZI AYARLAR
-   Bu bolumdeki degerleri degistirmen yeterli. Harici CSS baglantisi YOK.
-   - Wallpaper icin gercek bir resim URL'si yaz.
-   - --columns: 0 / 1 = tek sutun; 2+ = coklu sutun.
-   - Blur'u kapatmak icin --cb-glass-blur ve --cb-panel-blur = 0px.
-   - Opaklik: 1 = tam opak, 0 = tam seffaf.
+   CUSTOM BACKGROUND v4.7.2 | TEK YERDEN AYARLAR
+
+   SADECE --cb-transparency degerini degistirmen yeterli:
+   0%   = opak (arka plan gorunmez)
+   50%  = yari saydam
+   86%  = varsayilan / arka plan net gorunur
+   95%  = cok saydam (yazilarin okunmasi zorlasabilir)
+   100% = tamamen saydam (fotograf on planda)
+
+   Ayri ayarlar: --cb-sidebar-tint, --cb-members-tint, --cb-input-tint
+   = ana saydamliga EK opaklik verir. 0% = sohbetle ayni.
+   Alt mikrofon/kulaklik paneli bagimsizdir: --cb-panel-opacity.
+   Harici CSS importu, JS ve eklenti bagimliligi yoktur.
    ===================================================================== */
 :root {
-    /* Duvar kagidi / mevcut ayarlarla geriye donuk uyumluluk */
-    --wallpaper: url("WALLPAPER-LINK");
+    /* 1) ARKA PLAN */
+    --wallpaper: url("https://i.hizliresim.com/kbqkknsm.jpg");
     --wallpaper-size: cover;
     --wallpaper-position: center;
-    --columns: 0;
+    --columns: 0;                       /* 0/1 normal; 2+ cok sutun */
     --guildgap: 3;
     --aligndms: 0;
 
-    /* Cam gorunumu */
-    --cb-glass-opacity: 0.33; /* Genel cam katmani */
-    --cb-glass-blur: 4px; /* Resim artik fazla bulanik degil */
-    --cb-panel-opacity: 0.92; /* Ses kontrol dugmeleri net kalsin */
+    /* 2) ANA SAYDAMLIK: DEGISTIRILECEK EN ONEMLI DEGER */
+    --cb-transparency: 86%;             /* 0% opak  -  100% saydam */
+
+    /* 3) BOLGESEL OPakLIK EKLERI (pozitif = daha KOYU / daha AZ saydam) */
+    --cb-sidebar-tint: 26%;            /* Kanal listesi: 40% opak */
+    --cb-members-tint: 18%;            /* Uye listesi: 32% opak */
+    --cb-header-tint: 24%;             /* Sohbet basligi: 38% opak */
+    --cb-input-tint: 44%;              /* Mesaj yazma alani: 58% opak */
+    --cb-glass-tint: 19%;              /* Genel cam yuzeyleri: 33% opak */
+    --cb-workspace-tint: -4%;          /* Discord arka plan degiskeni: 10% */
+
+    /* 4) SES / KULLANICI KONTROLLERINI OKUNAKLI BIRAK */
+    --cb-panel-opacity: 92%;           /* Alt kontrol paneli */
+    --cb-panel-footer-opacity: 94%;    /* En alttaki avatar/ayar satiri */
     --cb-panel-blur: 8px;
-    --cb-workspace-opacity: 0.10;
-    /* Ana transparanlik ayarlari (0 = saydam, 1 = opak):
-       Sohbet 0.16, kanal listesi 0.40, uye listesi 0.32.
-       Fotograf fazla baskinsa her birini 0.05 - 0.10 arttir. */
-    --cb-chat-opacity: 0.16;
-    --cb-sidebar-opacity: 0.40;
-    --cb-members-opacity: 0.32;
-    --cb-header-opacity: 0.38;
-    --cb-wallpaper-dim: 0.04; /* 0 = resme dokunma, 0.10 = hafif karart */
-    --cb-chat-blur: 0px; /* Ana sohbetin arka planini NET goster */
+
+    /* 5) BULANIKLIK / CAM / HAREKET */
+    --cb-glass-blur: 4px;
+    --cb-chat-blur: 0px;                /* Sohbet fotografi net olsun */
     --cb-sidebar-blur: 6px;
     --cb-members-blur: 5px;
+    --cb-input-blur: 6px;
+    --cb-wallpaper-dim: 0.04;          /* 0 = resim aynen; 0.10 = hafif karanlik */
     --cb-message-hover-opacity: 0.075;
     --cb-radius: 13px;
     --cb-message-radius: 10px;
-
-    /* Nitro'nun kendi marka/tema rengini kullan. */
-    --cb-accent: var(--brand-500, #6575e9);
-    --cb-accent-strength: 22%;
     --cb-transition: 170ms;
     --cb-hover-lift: -1px;
 
-    /* Sunucu sutunlari: v4.6.4 ile birebir ayni geometri */
+    /* 6) NITRO RENGI / SUNUCU SUTUNLARI */
+    --cb-accent: var(--brand-500, #6575e9);
+    --cb-accent-strength: 22%;
     --cb-server-icon: 50px;
     --cb-server-gap-x: 12px;
     --cb-server-gap-y: 9px;
     --cb-server-side-padding: 11px;
 
-    /* Koyu palet; acik mod asagida otomatik degisir. */
+    /* 7) TURETILEN DEGERLER: ELLEMENE GEREK YOK */
+    --cb-chat-opacity: clamp(0%, calc(100% - var(--cb-transparency)), 100%);
+    --cb-sidebar-opacity: clamp(0%, calc(100% - var(--cb-transparency) + var(--cb-sidebar-tint)), 100%);
+    --cb-members-opacity: clamp(0%, calc(100% - var(--cb-transparency) + var(--cb-members-tint)), 100%);
+    --cb-header-opacity: clamp(0%, calc(100% - var(--cb-transparency) + var(--cb-header-tint)), 100%);
+    --cb-input-opacity: clamp(0%, calc(100% - var(--cb-transparency) + var(--cb-input-tint)), 100%);
+    --cb-glass-opacity: clamp(0%, calc(100% - var(--cb-transparency) + var(--cb-glass-tint)), 100%);
+    --cb-workspace-opacity: clamp(0%, calc(100% - var(--cb-transparency) + var(--cb-workspace-tint)), 100%);
+
+    /* 8) Koyu tema paleti (acik tema otomatik uyumlar) */
     --cb-glass-rgb: 14 20 34;
     --cb-panel-rgb: 14 20 34;
     --cb-floating-rgb: 20 23 33;
@@ -66,8 +86,6 @@
     --cb-settings-sidebar: rgba(13, 20, 34, 0.86);
     --cb-settings-surface: rgba(26, 35, 54, 0.82);
     --cb-settings-edge: rgba(173, 196, 255, 0.16);
-
-    /* Turetilen renkler: bunlari degistirmen gerekmez. */
     --cb-accent-soft: color-mix(in srgb, var(--cb-accent) var(--cb-accent-strength), transparent);
     --cb-accent-border: color-mix(in srgb, var(--cb-accent) 35%, transparent);
 }
@@ -205,7 +223,7 @@ html.custom-theme-background body {
 
 /* Metin kutusu: fotografin uzerinde de okunur. */
 .visual-refresh [class*="channelTextArea_"] {
-    background: rgb(var(--cb-glass-rgb) / 0.56) !important;
+    background: rgb(var(--cb-glass-rgb) / var(--cb-input-opacity)) !important;
     border: 1px solid var(--cb-border);
     border-radius: var(--cb-radius) !important;
     transition: border-color var(--cb-transition) ease, box-shadow var(--cb-transition) ease;
@@ -357,7 +375,7 @@ html.custom-theme-background body {
 
 /* En alttaki isim/ayar satiri ikonlarini arka planda kaybetme. */
 [class*="panels_"] > :last-child {
-    background: rgb(var(--cb-panel-rgb) / 0.94) !important;
+    background: rgb(var(--cb-panel-rgb) / var(--cb-panel-footer-opacity)) !important;
     border-top: 1px solid var(--cb-border);
 }
 
@@ -598,12 +616,12 @@ html.custom-theme-background body {
 /* Eski sistemler: backdrop-filter bulunmasa da opak zemin kalir. */
 @supports not (backdrop-filter: blur(1px)) {
     .visual-refresh :is([class*="chatContent_"], [class*="sidebarList_"], [class*="membersWrap_"]) {
-        background: rgb(var(--cb-glass-rgb) / 0.90) !important;
+        background: rgb(var(--cb-glass-rgb) / var(--cb-glass-opacity)) !important;
     }
 }
 
 /* =====================================================================
-   9) v4.7.1 GORUNUR GLASS FIX
+   9) v4.7.2 AYARLANABILIR GLASS FIX
    Neden: v4.7 sohbet zemini + Discord overlay katmanlari ust uste
    gelince fotograf bulanik ve soluk gorunuyordu. Bu bolumde zemin
    tekilleştirilir. Nitro renkleri ve tum ses kontrolleri korunur.
@@ -723,11 +741,11 @@ body,
 
 /* Yazma kutusu: gorunur ve kontrollu cam, odakta Nitro ince cerceve. */
 #app-mount .visual-refresh [class*="channelTextArea_"] {
-    background: rgb(var(--cb-glass-rgb) / 0.58) !important;
+    background: rgb(var(--cb-glass-rgb) / var(--cb-input-opacity)) !important;
     border: 1px solid var(--cb-border) !important;
     border-radius: var(--cb-radius) !important;
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(var(--cb-input-blur));
+    backdrop-filter: blur(var(--cb-input-blur));
 }
 #app-mount .visual-refresh [class*="channelTextArea_"]:focus-within {
     border-color: var(--cb-accent-border) !important;
@@ -745,13 +763,9 @@ body,
     backdrop-filter: blur(var(--cb-panel-blur));
 }
 
-/* Acik temada karartma kalksin ve renkli kenarliklar yumusasin. */
+/* Acik temada da ayni yuzdelik kontrol calisir. */
 .theme-light {
     --cb-wallpaper-dim: 0;
-    --cb-chat-opacity: 0.23;
-    --cb-sidebar-opacity: 0.54;
-    --cb-members-opacity: 0.47;
-    --cb-header-opacity: 0.50;
 }
 
 /* Hareket ve performans: foto net, asiri backdrop blur yok. */
@@ -766,14 +780,14 @@ body,
 /* @supports sadece ornek tarayici desteği degil, performansli fallback. */
 @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
     #app-mount .visual-refresh [class*="chatContent_"] {
-        background: rgb(var(--cb-glass-rgb) / 0.28) !important;
+        background: rgb(var(--cb-glass-rgb) / var(--cb-chat-opacity)) !important;
     }
     #app-mount .visual-refresh [class*="sidebarList_"] {
-        background: rgb(var(--cb-glass-rgb) / 0.62) !important;
+        background: rgb(var(--cb-glass-rgb) / var(--cb-sidebar-opacity)) !important;
     }
     #app-mount .visual-refresh [class*="membersWrap_"] {
-        background: rgb(var(--cb-glass-rgb) / 0.55) !important;
+        background: rgb(var(--cb-glass-rgb) / var(--cb-members-opacity)) !important;
     }
 }
 
-/* v4.7.1 | CSS-only: baska CSS dosyasi / JS / harici kutuphane yok. */
+/* v4.7.2 | CSS-only: baska CSS dosyasi / JS / harici kutuphane yok. */
