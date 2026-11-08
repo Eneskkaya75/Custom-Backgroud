@@ -1,3 +1,131 @@
+/**
+ * @name Custom Background - Renkli Temalar
+ * @author finnecre (orijinal), ChatGPT (renkli tema uyarlaması)
+ * @version 4.6.3
+ * @description Discord duvar kağıdı, Nitro temaları, okunaklı cam paneller ve modern ayarlar.
+ */
+
+@import url('https://raw.githubusercontent.com/finnecre/servercolumns/refs/heads/main/servercolumns.css');
+
+/* CUSTOMISE HERE */
+:root {
+    --wallpaper: url('WALLPAPER-LINK');
+    --columns: 0;
+}
+
+/* SETTINGS */
+:root {
+    --wallpaper-size: cover;
+    --wallpaper-position: center;
+    --guildgap: 3;
+    --aligndms: 0;
+}
+
+/* WALLPAPER */
+body {
+    background-image: var(--wallpaper);
+    background-size: var(--wallpaper-size);
+    background-position: var(--wallpaper-position);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#app-mount {
+    background: transparent !important;
+}
+
+#app-mount > [class*="app_"] > [class*="app_"] > [class*="bg_"] {
+    background: transparent !important;
+}
+
+/* LIGHT MODE */
+.theme-light {
+    --background-base-lowest: rgba(255, 255, 255, 0.32);
+    --background-base-lower: rgba(255, 255, 255, 0.25);
+    --background-base-low: rgba(255, 255, 255, 0.20);
+    --background-primary: rgba(255, 255, 255, 0.25);
+    --background-secondary: rgba(255, 255, 255, 0.20);
+    --background-secondary-alt: rgba(255, 255, 255, 0.16);
+    --background-tertiary: rgba(255, 255, 255, 0.14);
+    --bg-base-primary: rgba(255, 255, 255, 0.25);
+    --bg-base-secondary: rgba(255, 255, 255, 0.20);
+    --bg-base-tertiary: rgba(255, 255, 255, 0.16);
+    --background-floating: rgb(255, 255, 255);
+    --background-nested-floating: rgb(255, 255, 255);
+    --bg-surface-overlay: rgb(255, 255, 255);
+    --bg-surface-raised: rgb(255, 255, 255);
+    --modal-background: rgb(255, 255, 255);
+    --modal-footer-background: rgb(245, 245, 245);
+    --channeltextarea-background: rgba(255, 255, 255, 0.38);
+    --background-modifier-hover: rgba(0, 0, 0, 0.05);
+    --background-modifier-active: rgba(0, 0, 0, 0.07);
+    --background-modifier-selected: rgba(0, 0, 0, 0.08);
+}
+
+/* DARK MODE */
+.theme-dark {
+    --background-base-lowest: rgba(0, 0, 0, 0.35);
+    --background-base-lower: rgba(0, 0, 0, 0.28);
+    --background-base-low: rgba(0, 0, 0, 0.22);
+    --background-primary: rgba(0, 0, 0, 0.28);
+    --background-secondary: rgba(0, 0, 0, 0.24);
+    --background-secondary-alt: rgba(0, 0, 0, 0.20);
+    --background-tertiary: rgba(0, 0, 0, 0.18);
+    --bg-base-primary: rgba(0, 0, 0, 0.28);
+    --bg-base-secondary: rgba(0, 0, 0, 0.24);
+    --bg-base-tertiary: rgba(0, 0, 0, 0.20);
+    --background-floating: rgb(20, 20, 20);
+    --background-nested-floating: rgb(20, 20, 20);
+    --bg-surface-overlay: rgb(20, 20, 20);
+    --bg-surface-raised: rgb(20, 20, 20);
+    --modal-background: rgb(20, 20, 20);
+    --modal-footer-background: rgb(15, 15, 15);
+    --channeltextarea-background: rgba(0, 0, 0, 0.32);
+    --background-modifier-hover: rgba(255, 255, 255, 0.05);
+    --background-modifier-active: rgba(255, 255, 255, 0.07);
+    --background-modifier-selected: rgba(255, 255, 255, 0.08);
+}
+
+/* NORMAL DISCORD WORKSPACE */
+.visual-refresh [class*="chat_"],
+.visual-refresh [class*="chatContent_"],
+.visual-refresh [class*="messagesWrapper_"],
+.visual-refresh [class*="sidebarList_"],
+.visual-refresh [class*="membersWrap_"],
+.visual-refresh [class*="members_"] {
+    background-color: transparent !important;
+}
+
+/* POPOUTS / MENUS / DIALOGS */
+.theme-light [role="dialog"],
+.theme-light [role="menu"] {
+    --background-base-lowest: rgb(255, 255, 255);
+    --background-base-lower: rgb(255, 255, 255);
+    --background-base-low: rgb(250, 250, 250);
+    --background-primary: rgb(255, 255, 255);
+    --background-secondary: rgb(250, 250, 250);
+    --background-tertiary: rgb(245, 245, 245);
+    --bg-base-primary: rgb(255, 255, 255);
+    --bg-base-secondary: rgb(250, 250, 250);
+    --bg-base-tertiary: rgb(245, 245, 245);
+    --background-floating: rgb(255, 255, 255);
+}
+
+.theme-dark [role="dialog"],
+.theme-dark [role="menu"] {
+    --background-base-lowest: rgb(20, 20, 20);
+    --background-base-lower: rgb(20, 20, 20);
+    --background-base-low: rgb(24, 24, 24);
+    --background-primary: rgb(20, 20, 20);
+    --background-secondary: rgb(24, 24, 24);
+    --background-tertiary: rgb(28, 28, 28);
+    --bg-base-primary: rgb(20, 20, 20);
+    --bg-base-secondary: rgb(24, 24, 24);
+    --bg-base-tertiary: rgb(28, 28, 28);
+    --background-floating: rgb(20, 20, 20);
+}
+
+/* USER PROFILE MODAL */
 .theme-light [class*="user-profile-"],
 .theme-light .user-profile-modal-v2,
 .theme-light .user-profile-modal-v2 [class*="profileHeader_"],
@@ -12,13 +140,73 @@
     background-color: rgb(20, 20, 20) !important;
 }
 
-/* USER PANEL */
-.theme-light [class*="panels_"] {
-    background: rgba(255, 255, 255, 0.28) !important;
+/* USER / VOICE / STREAM PANELS
+   Burasi ekran paylasimi, ses baglantisi ve alt kullanici kontrolleridir.
+   0.90 = %90 opak, 0.95 = daha koyu/okunakli. */
+:root {
+    --cb-panel-opacity: 0.90;
+    --cb-panel-rgb: 14 20 34;
+    --cb-panel-edge: rgba(192, 204, 255, 0.16);
 }
 
+.theme-light {
+    --cb-panel-rgb: 245 248 255;
+    --cb-panel-edge: rgba(37, 57, 105, 0.16);
+}
+
+/* Nitro renkleri ikonlarda kalir; resim arkasinda metin kaybolmaz. */
+[class*="panels_"] {
+    background: linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--brand-500, #6575e9) 9%, transparent),
+        transparent 58%
+    ), rgb(var(--cb-panel-rgb) / var(--cb-panel-opacity)) !important;
+    border: 1px solid var(--cb-panel-edge) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.23) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(1.18);
+    backdrop-filter: blur(18px) saturate(1.18);
+    overflow: hidden;
+}
+
+/* Koyu Nitro temalarinda ikon ve yazi kontrasti. */
 .theme-dark [class*="panels_"] {
-    background: rgba(0, 0, 0, 0.28) !important;
+    --header-primary: #f3f6ff;
+    --text-normal: #dce6fb;
+    --text-muted: #b3bfd6;
+    --interactive-normal: #d4dff5;
+    --interactive-hover: #ffffff;
+}
+
+.theme-light [class*="panels_"] {
+    --header-primary: #18223a;
+    --text-normal: #263650;
+    --text-muted: #536381;
+    --interactive-normal: #344562;
+    --interactive-hover: #111a2d;
+}
+
+/* Mor/parlak gorunen son kullanici satirini de sabitle. */
+[class*="panels_"] > :last-child {
+    background: rgb(var(--cb-panel-rgb) / 0.94) !important;
+    border-top: 1px solid var(--cb-panel-edge);
+}
+
+/* Kontrol simgelerini soluklastirma; ancak mikrofonun kirmizi durumunu koru. */
+[class*="panels_"] button svg,
+[class*="panels_"] [role="button"] svg {
+    opacity: 1 !important;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.28));
+}
+
+[class*="panels_"] button,
+[class*="panels_"] [role="button"] {
+    transition: background-color 150ms ease, filter 150ms ease;
+}
+
+[class*="panels_"] button:hover,
+[class*="panels_"] [role="button"]:hover {
+    background-color: color-mix(in srgb, var(--brand-500, #6575e9) 18%, transparent) !important;
 }
 
 /* CHAT INPUT */
@@ -63,17 +251,17 @@ html.custom-theme-background body {
    Duvar kagidini ayarlarda da gosterir, Nitro vurgu rengini korur.
    =========================================================== */
 :root {
-    --cb-settings-overlay: rgba(10, 15, 28, 0.66);
-    --cb-settings-sidebar: rgba(10, 15, 28, 0.56);
-    --cb-settings-surface: rgba(16, 22, 37, 0.48);
-    --cb-settings-edge: rgba(255, 255, 255, 0.10);
+    --cb-settings-overlay: rgba(10, 15, 28, 0.76);
+    --cb-settings-sidebar: rgba(13, 20, 34, 0.86);
+    --cb-settings-surface: rgba(26, 35, 54, 0.82);
+    --cb-settings-edge: rgba(173, 196, 255, 0.16);
 }
 
 .theme-light {
-    --cb-settings-overlay: rgba(247, 249, 255, 0.72);
-    --cb-settings-sidebar: rgba(244, 247, 255, 0.60);
-    --cb-settings-surface: rgba(255, 255, 255, 0.56);
-    --cb-settings-edge: rgba(23, 34, 62, 0.10);
+    --cb-settings-overlay: rgba(247, 249, 255, 0.81);
+    --cb-settings-sidebar: rgba(244, 247, 255, 0.88);
+    --cb-settings-surface: rgba(255, 255, 255, 0.84);
+    --cb-settings-edge: rgba(23, 34, 62, 0.16);
 }
 
 /* Ayarlarin hem eski tam ekran duzeni hem yeni diyalog duzeni. */
@@ -126,3 +314,51 @@ html.custom-theme-background body {
 /* Kucuk ayar kartlarina yumusak yuzey; vurgu rengi Nitro'dan gelir. */
 [role="dialog"]:has([class*="sidebar_"]) [class*="contentRegion_"] [class*="card_"],
 [class*="standardSidebarView_"] [class*="contentRegion_"] [class*="card_"] {
+    background-color: var(--cb-settings-surface) !important;
+    border-color: var(--cb-settings-edge) !important;
+}
+
+/* SETTINGS POLISH v4.6.3
+   Arka plan kontrollu gorunur, metin ve butonlar net kalir.
+   Sonraki CSS sadece ayarlar diyaloğunu etkiler. */
+:is([role="dialog"]:has([class*="sidebar_"]),
+    [class*="standardSidebarView_"],
+    [data-mana-component="layer-modal"]:has([class*="sidebar_"])) {
+    border: 1px solid var(--cb-settings-edge) !important;
+    border-radius: 15px !important;
+    box-shadow: 0 24px 72px rgba(0, 0, 0, 0.40) !important;
+    overflow: hidden;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    --input-background: var(--cb-settings-surface) !important;
+    --background-modifier-hover: color-mix(in srgb, var(--brand-500, #6575e9) 15%, transparent) !important;
+    --background-modifier-selected: color-mix(in srgb, var(--brand-500, #6575e9) 23%, transparent) !important;
+}
+
+/* Ayarlarin sag bolumu bir butun siyah blok gibi gorunmesin. */
+[role="dialog"]:has([class*="sidebar_"]) [class*="contentRegion_"],
+[role="dialog"]:has([class*="sidebar_"]) [class*="contentRegionScroller_"],
+[class*="standardSidebarView_"] [class*="contentRegion_"],
+[class*="standardSidebarView_"] [class*="contentRegionScroller_"] {
+    background-color: rgba(16, 22, 37, 0.16) !important;
+}
+
+.theme-light [role="dialog"]:has([class*="sidebar_"]) [class*="contentRegion_"],
+.theme-light [class*="standardSidebarView_"] [class*="contentRegion_"] {
+    background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Ayarlardaki input/secmeli alanlarin zeminini belirginlestir. */
+[role="dialog"]:has([class*="sidebar_"]) :is(input, textarea, select),
+[class*="standardSidebarView_"] :is(input, textarea, select) {
+    background-color: var(--cb-settings-surface) !important;
+    border: 1px solid var(--cb-settings-edge) !important;
+    border-radius: 7px;
+}
+
+/* Secili ayar sekmesini fotograf uzerinde de ayirt edebil. */
+[role="dialog"]:has([class*="sidebar_"]) [aria-selected="true"],
+[class*="standardSidebarView_"] [aria-selected="true"] {
+    background-color: color-mix(in srgb, var(--brand-500, #6575e9) 22%, transparent) !important;
+    border-radius: 7px;
+}
