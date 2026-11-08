@@ -1,12 +1,17 @@
 /**
  * @name Custom Background - Renkli Temalar
  * @author Eneskkaya75 (ozellestirme), finnecre (ilk tema fikri)
- * @version 4.7.2
+ * @version 4.7.3
  * @description Tek ayardan yuzdelik saydamlik, bolgesel ince ayarlar, Nitro renkleri ve sunucu sutunlari. Harici CSS import yok.
  */
 
 /* =====================================================================
-   CUSTOM BACKGROUND v4.7.2 | TEK YERDEN AYARLAR
+   CUSTOM BACKGROUND v4.7.3 | PAYLASILABILIR ANA TEMA
+
+   Bu dosya GitHub'da ortak kullanilir. Kullaniciya ait resim YOK.
+   Her kullanici Vencord / BetterDiscord CSS editorunde @import'tan
+   SONRA kendi --wallpaper, --columns ve --cb-transparency
+   degerlerini belirler. Bu dosyadaki degerler varsayilandir.
 
    SADECE --cb-transparency degerini degistirmen yeterli:
    0%   = opak (arka plan gorunmez)
@@ -22,7 +27,7 @@
    ===================================================================== */
 :root {
     /* 1) ARKA PLAN */
-    --wallpaper: url("https://i.hizliresim.com/kbqkknsm.jpg");
+    --wallpaper: none;                 /* Kullanici URL'yi CSS editorunde tanimlar */
     --wallpaper-size: cover;
     --wallpaper-position: center;
     --columns: 0;                       /* 0/1 normal; 2+ cok sutun */
