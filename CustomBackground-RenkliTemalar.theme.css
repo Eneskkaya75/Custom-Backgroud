@@ -1,12 +1,12 @@
 /**
  * @name Custom Background - Renkli Temalar
  * @author Eneskkaya75 (özelleştirme), finnecre (ilk fikir)
- * @version 4.7.5
+ * @version 4.7.6
  * @description Ayarlanabilir cam saydamligi, Nitro renkleri, temiz ayarlar, sohbet efektleri ve sunucu sutunlari. Harici CSS yok.
  */
 
 /* ========================================================================
-   CUSTOM BACKGROUND v4.7.5 — PAYLASILABILIR TEMA
+   CUSTOM BACKGROUND v4.7.6 — PAYLASILABILIR TEMA
    Ortak GitHub dosyasinda kisisel arka plan resmi BULUNMAZ.
    Her kullanici CSS Editor'de (temanin import satirinin ALTINDA) kendi
    --wallpaper, --columns ve --cb-transparency ayarlarini tanimlar.
@@ -38,7 +38,11 @@
 
     /* Alt ses / kullanici kontrolleri bagimsizdir. */
     --cb-panel-opacity: 92%;
-    --cb-panel-footer-opacity: 94%;
+    --cb-panel-footer-opacity: 97%;
+    /* Ses ve ekran paylasimi butonlari artik fotografa karismaz. */
+    --cb-voice-button-opacity: 96%;
+    --cb-voice-hover-opacity: 100%;
+    --cb-voice-section-opacity: 96%;
 
     /* Doku, animasyon ve nitro rengi */
     --cb-chat-blur: 0px;
@@ -73,6 +77,8 @@
     /* Koyu mod tasarim tabani */
     --cb-glass-rgb: 13 18 31;
     --cb-panel-rgb: 14 20 34;
+    --cb-voice-button-rgb: 35 43 60;
+    --cb-voice-hover-rgb: 51 62 84;
     --cb-float-rgb: 22 26 37;
     --cb-line: rgb(172 190 242 / 13%);
     --cb-soft-shadow: 0 8px 24px rgb(0 0 0 / 16%);
@@ -84,6 +90,8 @@
 .theme-light {
     --cb-glass-rgb: 246 249 255;
     --cb-panel-rgb: 246 249 255;
+    --cb-voice-button-rgb: 224 232 245;
+    --cb-voice-hover-rgb: 209 221 240;
     --cb-float-rgb: 255 255 255;
     --cb-line: rgb(47 67 115 / 17%);
     --cb-soft-shadow: 0 8px 24px rgb(31 47 80 / 14%);
@@ -263,11 +271,13 @@ html.custom-theme-background .theme-light {
     background: var(--cb-accent-soft) !important;
 }
 
-#app-mount :is([class*="toolbar_"], [class*="panels_"]) :is(button, [role="button"]) {
+/* Ses panelindeki butonlara genel Nitro hover kuralini uygulama.
+   Ozel ses butonu kurallari asagida bulunuyor. */
+#app-mount [class*="toolbar_"] :is(button, [role="button"]) {
     transition: background-color var(--cb-transition) ease,
                 filter var(--cb-transition) ease;
 }
-#app-mount :is([class*="toolbar_"], [class*="panels_"]) :is(button, [role="button"]):hover {
+#app-mount [class*="toolbar_"] :is(button, [role="button"]):hover {
     background: var(--cb-accent-soft) !important;
     filter: brightness(1.08);
 }
@@ -289,11 +299,20 @@ html.custom-theme-background .theme-light {
     filter: brightness(1.08);
 }
 
+/* v4.7.6: Ses baglantisi / ekran paylasimi / alt hesap paneli duzeltmesi.
+   Bu alanda sohbet saydamligi kullanilmaz; duvar kagidi butonlarin
+   icinden gorunmesin diye butonlara ayrica yarim-opak degil koyu zemin verilir.
+   Mikrofon, kulaklik, canli yayin ikonlarinin durum renkleri korunur. */
 #app-mount [class*="panels_"] {
-    background: linear-gradient(145deg,
-                    color-mix(in srgb, var(--cb-accent) 9%, transparent),
-                    transparent 60%),
-                rgb(var(--cb-panel-rgb) / var(--cb-panel-opacity)) !important;
+    /* Discord'un kendi yuzey degiskenlerini yalnizca panel icinde sabitle. */
+    --background-primary: rgb(var(--cb-panel-rgb) / 100%);
+    --background-secondary: rgb(var(--cb-panel-rgb) / 100%);
+    --background-tertiary: rgb(var(--cb-panel-rgb) / 100%);
+    --bg-base-primary: rgb(var(--cb-panel-rgb) / 100%);
+    --bg-base-secondary: rgb(var(--cb-panel-rgb) / 100%);
+    --bg-overlay-1: transparent;
+    --bg-overlay-2: transparent;
+    background: rgb(var(--cb-panel-rgb) / var(--cb-panel-opacity)) !important;
     border: 1px solid var(--cb-line) !important;
     border-radius: var(--cb-radius) !important;
     box-shadow: var(--cb-soft-shadow) !important;
@@ -301,12 +320,42 @@ html.custom-theme-background .theme-light {
     backdrop-filter: blur(var(--cb-panel-blur));
     overflow: hidden;
 }
-#app-mount [class*="panels_"] > :last-child {
-    background-color: rgb(var(--cb-panel-rgb) / var(--cb-panel-footer-opacity)) !important;
+
+/* Ekran paylasimi, baglanti satiri ve kullanici satirini temiz tut.
+   Yalnizca dogrudan panel bolumlerini hedefler; tum 'container' siniflarini
+   global olarak etkilemez. */
+#app-mount [class*="panels_"] > :is(
+    [class*="container_"], [class*="wrapper_"], [class*="connection_"],
+    [class*="activityPanel_"], [class*="panel_"]
+) {
+    background: rgb(var(--cb-panel-rgb) / var(--cb-voice-section-opacity)) !important;
+}
+
+/* Alttaki kullanici satirinda gorunen mor Nitro bandini sadece burada kaldir. */
+#app-mount [class*="panels_"] > :last-child,
+#app-mount [class*="panels_"] > :last-child > [class*="container_"] {
+    background: rgb(var(--cb-panel-rgb) / var(--cb-panel-footer-opacity)) !important;
     border-top: 1px solid var(--cb-line);
+}
+
+/* Ses/sunum kontrol butonlari arka plan resmini gostermesin.
+   Sadece butonun zemini degisir; ikon renkleri degistirilmez. */
+#app-mount [class*="panels_"] :is(button, [role="button"]) {
+    background-image: none !important;
+    background-color: rgb(var(--cb-voice-button-rgb) / var(--cb-voice-button-opacity)) !important;
+    border-radius: 8px;
+    box-shadow: none !important;
+    filter: none !important;
+    transition: background-color var(--cb-transition) ease,
+                box-shadow var(--cb-transition) ease !important;
+}
+#app-mount [class*="panels_"] :is(button, [role="button"]):hover {
+    background-color: rgb(var(--cb-voice-hover-rgb) / var(--cb-voice-hover-opacity)) !important;
+    filter: none !important;
 }
 #app-mount [class*="panels_"] :is(button, [role="button"]) svg {
     opacity: 1 !important;
+    filter: none !important;
 }
 
 /* ========================================================================
