@@ -1,12 +1,12 @@
 /**
  * @name Custom Background - Renkli Temalar
  * @author Eneskkaya75 (özelleştirme), finnecre (ilk fikir)
- * @version 4.7.6
- * @description Ayarlanabilir cam saydamligi, Nitro renkleri, temiz ayarlar, sohbet efektleri ve sunucu sutunlari. Harici CSS yok.
+ * @version 4.7.7
+ * @description Net duvar kagidi gorunumu, ayarlanabilir cam saydamligi, Nitro renkleri, duzeltilmis ses paneli ve sunucu sutunlari. Harici CSS yok.
  */
 
 /* ========================================================================
-   CUSTOM BACKGROUND v4.7.6 — PAYLASILABILIR TEMA
+   CUSTOM BACKGROUND v4.7.7 — PAYLASILABILIR TEMA
    Ortak GitHub dosyasinda kisisel arka plan resmi BULUNMAZ.
    Her kullanici CSS Editor'de (temanin import satirinin ALTINDA) kendi
    --wallpaper, --columns ve --cb-transparency ayarlarini tanimlar.
@@ -19,8 +19,12 @@
 :root {
     /* KULLANICININ CSS EDITOR'DE DEGISTIREBILECEGI AYARLAR */
     --wallpaper: none;
+    /* Kaynak fotografi mumkun olan en dogru sekilde gosterir.
+       cover pencereyi kaplar ama kucuk fotograflari buyutebilir;
+       auto ise orijinal CSS piksel boyutlarini korur. */
     --wallpaper-size: cover;
     --wallpaper-position: center;
+    --cb-wallpaper-rendering: auto; /* Fotograflar icin dogal interpolasyon. */
     --columns: 0;
     --guildgap: 3;
     --aligndms: 0;
@@ -46,9 +50,12 @@
 
     /* Doku, animasyon ve nitro rengi */
     --cb-chat-blur: 0px;
-    --cb-sidebar-blur: 3px;
-    --cb-settings-blur: 2px;
-    --cb-panel-blur: 8px;
+    /* v4.7.7: Fotografi yumusatan cam bulanıklıkları varsayilan olarak KAPALI.
+       Istege bagli tekrar etkinlestirmek icin CSS Editor'de 2px vb. yazin. */
+    --cb-sidebar-blur: 0px;
+    --cb-settings-blur: 0px;
+    --cb-panel-blur: 0px;
+    --cb-input-blur: 0px;
     --cb-radius: 12px;
     --cb-message-radius: 9px;
     --cb-transition: 160ms;
@@ -112,6 +119,9 @@ body {
     background-repeat: no-repeat !important;
     background-attachment: fixed !important;
     background-color: rgb(13 18 31) !important;
+    /* Yumusatma / piksel keskinlestirme hilesi kullanma. Bu ayar
+       kaynak resimde olmayan ayrinti veya cozunurluk olusturmaz. */
+    image-rendering: var(--cb-wallpaper-rendering);
 }
 #app-mount,
 #app-mount > [class*="app_"],
@@ -211,8 +221,8 @@ html.custom-theme-background .theme-light {
     background: rgb(var(--cb-glass-rgb) / var(--cb-input-alpha)) !important;
     border: 1px solid var(--cb-line) !important;
     border-radius: var(--cb-radius) !important;
-    -webkit-backdrop-filter: blur(3px);
-    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(var(--cb-input-blur));
+    backdrop-filter: blur(var(--cb-input-blur));
     transition: border-color var(--cb-transition) ease,
                 box-shadow var(--cb-transition) ease;
 }
@@ -592,3 +602,13 @@ html.custom-theme-background .theme-light {
         background: rgb(var(--cb-panel-rgb) / var(--cb-panel-opacity)) !important;
     }
 }
+
+/* ========================================================================
+   v4.7.7 - FOTO NETLIGI NOTU
+   - Duvar kagidi hicbir global filter/transform ile buyutulmez veya blur'lanmaz.
+   - Cam panellerdeki varsayilan blur degerleri 0px'tir.
+   - --wallpaper-size: cover fotografi pencereye sigdirmak icin buyutebilir;
+     buyuk ekranlarda gercek netlik icin yuksek cozunurluklu dosya gerekir.
+   - --wallpaper-size: auto dogal CSS piksel boyutunu kullanir, ancak
+     fotograf ekrani tamamen kaplamayabilir.
+   ======================================================================== */
